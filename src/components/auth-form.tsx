@@ -7,9 +7,8 @@ import { loginAction, registerAction, type FormState } from "@/lib/actions";
 import { Alert } from "./ui";
 import { COUNTRIES } from "@/lib/format";
 
-const field =
-  "w-full rounded-xl border border-ink-700 bg-ink-900 px-4 py-3 text-sm text-white placeholder:text-mist-400 outline-none transition-colors focus:border-neon-500";
-const label = "block text-xs font-semibold uppercase tracking-wide text-mist-400";
+const field = "field px-4 py-3 text-sm";
+const label = "block text-[10px] font-semibold uppercase tracking-[0.18em] text-mist-400";
 
 function Submit({ children }: { children: React.ReactNode }) {
   const { pending } = useFormStatus();
@@ -17,7 +16,7 @@ function Submit({ children }: { children: React.ReactNode }) {
     <button
       type="submit"
       disabled={pending}
-      className="w-full rounded-xl bg-gradient-to-r from-neon-500 to-aqua-500 px-5 py-3.5 text-sm font-bold text-ink-950 transition-transform hover:scale-[1.01] disabled:opacity-60"
+      className="btn btn-primary w-full px-5 py-3.5 text-xs disabled:opacity-60"
     >
       {pending ? "Un momento…" : children}
     </button>

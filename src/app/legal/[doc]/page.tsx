@@ -29,25 +29,21 @@ export default async function LegalPage({ params }: { params: Promise<{ doc: str
           <Link
             key={item.slug}
             href={`/legal/${item.slug}`}
-            className={`rounded-full border px-3 py-1.5 ${
-              item.slug === legal.slug
-                ? "border-neon-500 bg-neon-500/15 text-white"
-                : "border-ink-700 text-mist-400 hover:text-white"
-            }`}
+            className={`chip px-3.5 py-2 ${item.slug === legal.slug ? "chip-active" : ""}`}
           >
             {item.title}
           </Link>
         ))}
       </nav>
 
-      <h1 className="text-3xl font-black tracking-tight text-white">{legal.title}</h1>
+      <h1 className="headline text-3xl text-white sm:text-4xl">{legal.title}</h1>
       <p className="mt-2 text-sm text-mist-400">Última actualización: {legal.updated}</p>
       <p className="mt-6 text-base leading-relaxed text-mist-300">{legal.intro}</p>
 
       <div className="mt-10 space-y-8">
         {legal.sections.map((section) => (
           <section key={section.heading}>
-            <h2 className="text-lg font-bold text-white">{section.heading}</h2>
+            <h2 className="font-display text-lg font-bold uppercase tracking-tight text-white">{section.heading}</h2>
             <div className="mt-3 space-y-3">
               {section.paragraphs.map((p, i) => (
                 <p key={i} className="text-sm leading-relaxed text-mist-400">

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { GiveawayCard } from "@/components/giveaway-card";
 import { Countdown } from "@/components/countdown";
-import { Badge, Progress, SectionHeading, Stat } from "@/components/ui";
+import { PrizeArt } from "@/components/prize-art";
+import { Badge, LiveDot, Progress, SectionHeading, Stat } from "@/components/ui";
 import { listOpenGiveaways, listPosts, listWinners, platformStats } from "@/lib/queries";
-import { countryFlag, countryName, money, number, shortDate } from "@/lib/format";
+import { countryFlag, countryName, money, number, shortDate, ticketCode } from "@/lib/format";
 
 const STEPS = [
   {
@@ -62,87 +63,84 @@ export default async function HomePage() {
       {/* ---------------------------------------------------------------- hero */}
       <section className="aurora relative overflow-hidden border-b border-ink-800">
         <div className="grid-lines absolute inset-0" aria-hidden />
-        <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-6xl gap-14 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-lime-500/40 bg-lime-500/10 px-3 py-1.5 text-xs font-semibold text-lime-500">
-              <span className="live-dot h-1.5 w-1.5 rounded-full bg-lime-500" />
-              {stats.openGiveaways} sorteos abiertos ahora mismo
+            <span className="font-display inline-flex items-center gap-2 border border-lime-500/45 bg-lime-500/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-lime-400">
+              <LiveDot />
+              {stats.openGiveaways} sorteos abiertos ahora
             </span>
 
-            <h1 className="mt-6 text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-6xl">
-              Juega bien.
+            <h1 className="headline mt-7 text-[3.25rem] leading-[0.92] text-white sm:text-7xl">
+              <span className="text-glow">Juega bien.</span>
               <br />
               <span className="text-gradient">Gana en serio.</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-mist-300 sm:text-lg">
-              GG Play es la comunidad gamer de LATAM donde cada mes se sortean consolas, PCs y
-              periféricos de verdad. Boletos desde {money(200)}, uno gratis para cada cuenta y un
-              resultado que puedes recalcular tú mismo.
+            <p className="mt-7 max-w-xl text-base leading-relaxed text-mist-300 sm:text-lg">
+              La comunidad gamer de LATAM donde cada mes se sortean consolas, PCs y periféricos de
+              verdad. Boletos desde {money(200)}, uno gratis para cada cuenta y un resultado que
+              puedes recalcular tú mismo.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/registro"
-                className="rounded-xl bg-gradient-to-r from-neon-500 to-aqua-500 px-6 py-3.5 text-sm font-bold text-ink-950 transition-transform hover:scale-[1.03]"
-              >
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link href="/registro" className="btn btn-primary px-7 py-4 text-sm">
                 Crear cuenta gratis
               </Link>
-              <Link
-                href="/sorteos"
-                className="rounded-xl border border-ink-700 px-6 py-3.5 text-sm font-semibold text-mist-200 transition-colors hover:border-neon-500/60 hover:text-white"
-              >
-                Ver sorteos abiertos
+              <Link href="/sorteos" className="btn btn-ghost px-7 py-4 text-sm">
+                Ver sorteos
               </Link>
             </div>
 
-            <dl className="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-ink-800 pt-8">
-              <div>
-                <dt className="text-xs uppercase tracking-wide text-mist-400">Miembros</dt>
-                <dd className="mt-1 text-2xl font-extrabold text-white">{number(stats.members)}</dd>
-              </div>
-              <div>
-                <dt className="text-xs uppercase tracking-wide text-mist-400">Premios entregados</dt>
-                <dd className="mt-1 text-2xl font-extrabold text-white">{stats.prizesDelivered}</dd>
-              </div>
-              <div>
-                <dt className="text-xs uppercase tracking-wide text-mist-400">En premios</dt>
-                <dd className="mt-1 text-2xl font-extrabold text-white">{money(stats.prizeValueCents)}</dd>
-              </div>
+            <dl className="mt-11 grid max-w-lg grid-cols-3 gap-5 border-t border-ink-800 pt-8">
+              {[
+                ["Miembros", number(stats.members)],
+                ["Premios entregados", String(stats.prizesDelivered)],
+                ["En premios", money(stats.prizeValueCents)],
+              ].map(([label, value]) => (
+                <div key={label}>
+                  <dt className="text-[10px] font-semibold uppercase tracking-[0.16em] text-mist-400">
+                    {label}
+                  </dt>
+                  <dd className="font-display mt-1.5 text-2xl font-bold tabular-nums text-white">{value}</dd>
+                </div>
+              ))}
             </dl>
           </div>
 
           {hero && (
-            <div className="card overflow-hidden">
-              <div
-                className="flex h-44 items-center justify-center"
-                style={{ background: `linear-gradient(135deg, ${hero.art.from}, ${hero.art.to})` }}
-              >
-                <span aria-hidden className="text-7xl drop-shadow-xl">
-                  {hero.art.emoji}
+            <div className="panel hud float-slow overflow-hidden" style={{ ["--cut" as string]: "22px" }}>
+              <div className="sheen group relative">
+                <PrizeArt art={hero.art} size="hero" />
+                <span className="absolute left-4 top-4 z-[2]">
+                  <Badge tone="live">
+                    <LiveDot /> Sorteo destacado
+                  </Badge>
                 </span>
               </div>
-              <div className="p-6">
-                <Badge tone="live">
-                  <span className="live-dot h-1.5 w-1.5 rounded-full bg-lime-500" /> Sorteo destacado
-                </Badge>
-                <h2 className="mt-3 text-xl font-bold text-white">{hero.title}</h2>
+              <div className="p-6 sm:p-7">
+                <h2 className="font-display text-xl font-bold uppercase leading-tight tracking-tight text-white">
+                  {hero.title}
+                </h2>
                 <p className="mt-2 text-sm text-mist-400">{hero.tagline}</p>
 
-                <div className="mt-5">
+                <div className="mt-6">
                   <Countdown to={hero.drawAt} />
                 </div>
 
-                <div className="mt-5">
+                <div className="mt-6">
                   <Progress
                     value={hero.progress}
-                    label={`${number(hero.ticketsSold)} de ${number(hero.totalTickets)} boletos vendidos`}
+                    label={
+                      <span className="font-mono text-[11px]">
+                        {number(hero.ticketsSold)} / {number(hero.totalTickets)} boletos vendidos
+                      </span>
+                    }
                   />
                 </div>
 
                 <Link
                   href={`/sorteos/${hero.slug}`}
-                  className="mt-6 block rounded-xl bg-white px-5 py-3 text-center text-sm font-bold text-ink-950 transition-opacity hover:opacity-90"
+                  className="btn btn-light mt-7 w-full py-3.5 text-sm"
                 >
                   Participar desde {money(hero.ticketPriceCents)}
                 </Link>
@@ -153,26 +151,26 @@ export default async function HomePage() {
       </section>
 
       {/* -------------------------------------------------------------- ticker */}
-      <div className="overflow-hidden border-b border-ink-800 bg-ink-900/50 py-3">
-        <div className="ticker-track flex w-max gap-8 whitespace-nowrap text-sm text-mist-400">
+      <div className="overflow-hidden border-b border-ink-800 bg-ink-950 py-3.5">
+        <div className="ticker-track flex w-max gap-8 whitespace-nowrap font-display text-[13px] font-semibold uppercase tracking-wide text-mist-400">
           {[...ticker, ...ticker].map((item, i) => (
             <span key={i} className="flex items-center gap-8">
               {item}
-              <span className="text-ink-600">◆</span>
+              <span className="text-neon-500">◆</span>
             </span>
           ))}
         </div>
       </div>
 
       {/* ------------------------------------------------------------- sorteos */}
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <SectionHeading
           eyebrow="Abiertos ahora"
           title="Elige tu próximo premio"
           description="Todos los sorteos muestran cuántos boletos llevan vendidos, cuántos hacen falta como mínimo y a qué hora exacta se ejecuta el directo."
           action={{ href: "/sorteos", label: "Ver todos" }}
         />
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {open.slice(0, 6).map((giveaway) => (
             <GiveawayCard key={giveaway.id} giveaway={giveaway} />
           ))}
@@ -180,19 +178,22 @@ export default async function HomePage() {
       </section>
 
       {/* -------------------------------------------------------- cómo funciona */}
-      <section className="border-y border-ink-800 bg-ink-900/40">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <section className="relative border-y border-ink-800 bg-ink-950">
+        <div className="grid-lines absolute inset-0 opacity-60" aria-hidden />
+        <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
           <SectionHeading
             eyebrow="Tres pasos"
             title="Participar toma menos de un minuto"
             description="Sin sorteos escondidos en comentarios, sin seguir a diez cuentas, sin etiquetar a nadie."
           />
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
             {STEPS.map((step) => (
-              <div key={step.n} className="card p-7">
-                <span className="text-sm font-black tracking-widest text-neon-400">{step.n}</span>
-                <h3 className="mt-3 text-lg font-bold text-white">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-mist-400">{step.body}</p>
+              <div key={step.n} className="panel hud p-7">
+                <span className="font-display text-3xl font-bold text-neon-500/70">{step.n}</span>
+                <h3 className="font-display mt-4 text-lg font-bold uppercase tracking-tight text-white">
+                  {step.title}
+                </h3>
+                <p className="mt-2.5 text-sm leading-relaxed text-mist-400">{step.body}</p>
               </div>
             ))}
           </div>
@@ -200,38 +201,33 @@ export default async function HomePage() {
       </section>
 
       {/* --------------------------------------------------------- verificable */}
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="card grid gap-10 p-8 sm:p-12 lg:grid-cols-2 lg:items-center">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+        <div className="panel hud grid gap-10 p-8 sm:p-12 lg:grid-cols-2 lg:items-center" style={{ ["--cut" as string]: "24px" }}>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-aqua-400">
+            <p className="eyebrow flex items-center gap-2 text-aqua-400">
+              <span aria-hidden className="inline-block h-3 w-[3px] bg-aqua-500" />
               Sorteo verificable
             </p>
-            <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+            <h2 className="headline mt-3 text-[1.75rem] text-white sm:text-4xl">
               No te pedimos que confíes: te damos las cuentas
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-mist-400">
+            <p className="mt-5 text-sm leading-relaxed text-mist-400">
               Antes de vender el primer boleto publicamos el hash de una semilla secreta. En el
               directo, el chat aporta la semilla pública. El boleto ganador sale de combinar ambas
               con la cantidad exacta de boletos vendidos. Al terminar revelamos la semilla secreta y
               cualquiera puede repetir la operación.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link
-                href="/verificar"
-                className="rounded-xl bg-gradient-to-r from-neon-500 to-aqua-500 px-5 py-3 text-sm font-bold text-ink-950"
-              >
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/verificar" className="btn btn-primary px-6 py-3.5 text-xs">
                 Verificar un sorteo
               </Link>
-              <Link
-                href="/como-funciona"
-                className="rounded-xl border border-ink-700 px-5 py-3 text-sm font-semibold text-mist-200 hover:text-white"
-              >
-                Leer el método completo
+              <Link href="/como-funciona" className="btn btn-ghost px-6 py-3.5 text-xs">
+                Leer el método
               </Link>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-ink-700 bg-ink-950 p-6 font-mono text-xs leading-relaxed text-mist-300">
+          <div className="border border-ink-700 bg-void p-6 font-mono text-xs leading-relaxed">
             <p className="text-mist-400"># 1. antes de abrir la venta</p>
             <p className="mt-1 break-all text-aqua-400">seedHash = sha256(serverSeed)</p>
             <p className="mt-4 text-mist-400"># 2. en el directo, lo dice el chat</p>
@@ -241,44 +237,44 @@ export default async function HomePage() {
               hmac(serverSeed, publicSeed + &quot;:&quot; + boletos) % boletos + 1
             </p>
             <p className="mt-4 text-mist-400"># 4. al terminar publicamos serverSeed</p>
-            <p className="mt-1 text-lime-500">verificado ✓</p>
+            <p className="mt-1 text-lime-400">verificado ✓</p>
           </div>
         </div>
       </section>
 
       {/* ------------------------------------------------------------ ganadores */}
-      <section className="border-y border-ink-800 bg-ink-900/40">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <section className="border-y border-ink-800 bg-ink-950">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
           <SectionHeading
             eyebrow="Ya entregados"
             title="Los últimos que se llevaron el premio"
             description="Cada ficha enlaza a la comprobación del sorteo y a la transmisión donde se ejecutó."
             action={{ href: "/ganadores", label: "Todos los ganadores" }}
           />
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
             {winners.slice(0, 4).map((g) => (
               <Link
                 key={g.id}
                 href={`/sorteos/${g.slug}`}
-                className="card card-hover flex min-w-0 items-center gap-5 p-5"
+                className="panel panel-hover group flex min-w-0 items-center gap-5 p-5"
+                style={{ ["--cut" as string]: "12px" }}
               >
-                <span
-                  aria-hidden
-                  className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl text-3xl"
-                  style={{ background: `linear-gradient(135deg, ${g.art.from}, ${g.art.to})` }}
-                >
-                  {g.art.emoji}
-                </span>
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-bold text-white">{g.title}</p>
-                  <p className="mt-1 truncate text-sm text-mist-400">
+                <PrizeArt art={g.art} size="tile" />
+                <div className="min-w-0 flex-1">
+                  <p className="font-display truncate text-sm font-bold uppercase tracking-tight text-white">
+                    {g.title}
+                  </p>
+                  <p className="mt-1.5 truncate text-sm text-mist-400">
                     {countryFlag(g.result?.winnerCountry ?? "")} {g.result?.winnerName} ·{" "}
                     {countryName(g.result?.winnerCountry ?? "")}
                   </p>
-                  <p className="mt-1 text-xs text-mist-400">
-                    Boleto #{number(g.result?.winningTicket ?? 0)} · {shortDate(g.result?.drawnAt ?? g.drawAt)}
+                  <p className="mt-1 font-mono text-[11px] text-mist-400">
+                    {ticketCode(g.result?.winningTicket ?? 0)} · {shortDate(g.result?.drawnAt ?? g.drawAt)}
                   </p>
                 </div>
+                <span aria-hidden className="font-display shrink-0 text-lime-400">
+                  ✓
+                </span>
               </Link>
             ))}
           </div>
@@ -286,29 +282,27 @@ export default async function HomePage() {
       </section>
 
       {/* ------------------------------------------------------------ comunidad */}
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <SectionHeading
           eyebrow="Comunidad"
           title="Más que sorteos"
           description="Podcast quincenal, directos de los viernes y análisis con precios reales de la región."
           action={{ href: "/comunidad", label: "Ir a comunidad" }}
         />
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.slice(0, 3).map((post) => (
-            <Link key={post.id} href={`/comunidad/${post.slug}`} className="card card-hover overflow-hidden">
-              <div
-                className="flex h-32 items-center justify-center text-5xl"
-                style={{ background: `linear-gradient(135deg, ${post.art.from}, ${post.art.to})` }}
-                aria-hidden
-              >
-                {post.art.emoji}
+            <Link key={post.id} href={`/comunidad/${post.slug}`} className="panel panel-hover group overflow-hidden">
+              <div className="sheen">
+                <PrizeArt art={post.art} size="card" />
               </div>
               <div className="p-5">
-                <span className="text-[11px] font-semibold uppercase tracking-wide text-neon-400">
+                <span className="font-display text-[10px] font-semibold uppercase tracking-[0.18em] text-neon-400">
                   {post.kind}
                   {post.duration ? ` · ${post.duration}` : ""}
                 </span>
-                <h3 className="mt-2 text-base font-bold leading-snug text-white">{post.title}</h3>
+                <h3 className="font-display mt-2.5 text-base font-bold uppercase leading-tight tracking-tight text-white">
+                  {post.title}
+                </h3>
                 <p className="mt-2 line-clamp-2 text-sm text-mist-400">{post.excerpt}</p>
               </div>
             </Link>
@@ -317,17 +311,17 @@ export default async function HomePage() {
       </section>
 
       {/* ----------------------------------------------------------------- faq */}
-      <section className="border-t border-ink-800 bg-ink-900/40">
-        <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6">
+      <section className="border-t border-ink-800 bg-ink-950">
+        <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 sm:py-24">
           <SectionHeading eyebrow="Dudas frecuentes" title="Lo que todo el mundo pregunta" />
-          <div className="mt-8 divide-y divide-ink-800 border-y border-ink-800">
+          <div className="mt-10 divide-y divide-ink-800 border-y border-ink-800">
             {FAQ.map((item) => (
               <details key={item.q} className="group py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-white">
+                <summary className="font-display flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold uppercase tracking-wide text-white">
                   {item.q}
-                  <span className="text-mist-400 transition-transform group-open:rotate-45">+</span>
+                  <span className="text-neon-400 transition-transform group-open:rotate-45">+</span>
                 </summary>
-                <p className="mt-3 text-sm leading-relaxed text-mist-400">{item.a}</p>
+                <p className="mt-3.5 text-sm leading-relaxed text-mist-400">{item.a}</p>
               </details>
             ))}
           </div>
@@ -335,35 +329,27 @@ export default async function HomePage() {
       </section>
 
       {/* ----------------------------------------------------------------- cta */}
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="aurora card relative overflow-hidden p-10 text-center sm:p-16">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+        <div className="aurora panel hud relative overflow-hidden p-10 text-center sm:p-16" style={{ ["--cut" as string]: "26px" }}>
           <div className="grid-lines absolute inset-0" aria-hidden />
           <div className="relative">
-            <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
-              Tu primer boleto es gratis
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-mist-300">
+            <h2 className="headline text-[2rem] text-white sm:text-5xl">Tu primer boleto es gratis</h2>
+            <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-mist-300">
               Crea tu cuenta, reclama tu boleto gratuito en el sorteo que quieras y mira el directo
               del viernes. Si ganas, el premio te llega a casa sin que pongas un peso.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link
-                href="/registro"
-                className="rounded-xl bg-gradient-to-r from-neon-500 to-aqua-500 px-6 py-3.5 text-sm font-bold text-ink-950"
-              >
+            <div className="mt-9 flex flex-wrap justify-center gap-3">
+              <Link href="/registro" className="btn btn-primary px-7 py-4 text-sm">
                 Empezar ahora
               </Link>
-              <Link
-                href="/como-funciona"
-                className="rounded-xl border border-ink-700 px-6 py-3.5 text-sm font-semibold text-mist-200 hover:text-white"
-              >
+              <Link href="/como-funciona" className="btn btn-ghost px-7 py-4 text-sm">
                 Cómo funciona
               </Link>
             </div>
-            <div className="mt-12 grid gap-4 sm:grid-cols-3">
+            <div className="mt-14 grid gap-4 sm:grid-cols-3">
               <Stat value={number(stats.ticketsSold)} label="Boletos emitidos" />
-              <Stat value={`${stats.prizesDelivered}`} label="Sorteos ejecutados" />
-              <Stat value="100%" label="Resultados verificables" />
+              <Stat value={`${stats.prizesDelivered}`} label="Sorteos ejecutados" tone="neon" />
+              <Stat value="100%" label="Resultados verificables" tone="lime" />
             </div>
           </div>
         </div>

@@ -10,11 +10,8 @@ import type { TicketPack } from "@/lib/types";
 
 function SubmitButton({ children, variant = "primary" }: { children: React.ReactNode; variant?: "primary" | "ghost" }) {
   const { pending } = useFormStatus();
-  const base = "w-full rounded-xl px-5 py-3.5 text-sm font-bold transition-all disabled:opacity-60";
-  const styles =
-    variant === "primary"
-      ? "bg-gradient-to-r from-neon-500 to-aqua-500 text-ink-950 hover:scale-[1.01]"
-      : "border border-ink-700 text-mist-200 hover:border-neon-500/60 hover:text-white";
+  const base = "btn w-full px-5 py-3.5 text-xs disabled:opacity-60";
+  const styles = variant === "primary" ? "btn-primary" : "btn-ghost";
   return (
     <button type="submit" disabled={pending} className={`${base} ${styles}`}>
       {pending ? "Procesando…" : children}
@@ -46,8 +43,8 @@ export function TicketPicker({
   const saving = pack ? pack.tickets * ticketPriceCents - pack.priceCents : 0;
 
   return (
-    <div className="card p-6">
-      <h3 className="text-sm font-bold uppercase tracking-wide text-mist-400">Elige tus boletos</h3>
+    <div className="panel p-6">
+      <h3 className="eyebrow text-mist-400">Elige tus boletos</h3>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
         {packs.map((option, index) => {
@@ -58,18 +55,20 @@ export function TicketPicker({
               type="button"
               onClick={() => setSelected(index)}
               aria-pressed={active}
-              className={`rounded-xl border p-4 text-left transition-colors ${
-                active
-                  ? "border-neon-500 bg-neon-500/10"
-                  : "border-ink-700 bg-ink-900/60 hover:border-ink-600"
-              }`}
+              className={`pack ${active ? "pack-active" : ""}`}
             >
-              <p className="text-lg font-extrabold text-white">
-                {option.tickets}{" "}
-                <span className="text-sm font-semibold text-mist-400">{ticketWord(option.tickets)}</span>
+              <p className="font-display text-2xl font-bold leading-none text-white">
+                {option.tickets}
+                <span className="ml-1.5 text-[11px] font-semibold uppercase tracking-wide text-mist-400">
+                  {ticketWord(option.tickets)}
+                </span>
               </p>
-              <p className="mt-1 text-sm font-semibold text-aqua-400">{money(option.priceCents)}</p>
-              {option.label && <p className="mt-1 text-[11px] font-medium text-lime-500">{option.label}</p>}
+              <p className="font-display mt-2 text-sm font-bold text-aqua-400">{money(option.priceCents)}</p>
+              {option.label && (
+                <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-lime-400">
+                  {option.label}
+                </p>
+              )}
             </button>
           );
         })}
@@ -110,7 +109,7 @@ export function TicketPicker({
         {freeState.ok && <Alert tone="ok">{freeState.ok}</Alert>}
 
         {hasFreeTicket ? (
-          <p className="rounded-xl border border-ink-700 bg-ink-900/60 px-4 py-3 text-center text-sm text-mist-400">
+          <p className="border border-ink-700 bg-ink-900 px-4 py-3 text-center text-sm text-mist-400">
             Ya reclamaste tu boleto gratis de este sorteo.
           </p>
         ) : (

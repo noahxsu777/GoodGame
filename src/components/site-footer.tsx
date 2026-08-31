@@ -33,7 +33,7 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-ink-800 bg-ink-900/60">
+    <footer className="mt-24 border-t border-ink-800 bg-ink-950">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
@@ -46,7 +46,7 @@ export function SiteFooter() {
               {["TikTok", "YouTube", "Discord", "Instagram"].map((red) => (
                 <span
                   key={red}
-                  className="rounded-lg border border-ink-700 px-2.5 py-1.5 text-xs text-mist-400"
+                  className="font-display border border-ink-700 bg-ink-900 px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-mist-400 transition-colors hover:border-neon-500/60 hover:text-white"
                 >
                   {red}
                 </span>
@@ -56,7 +56,7 @@ export function SiteFooter() {
 
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-mist-400">
+              <h3 className="font-display text-[11px] font-semibold uppercase tracking-[0.2em] text-neon-400">
                 {col.title}
               </h3>
               <ul className="mt-4 space-y-2.5">

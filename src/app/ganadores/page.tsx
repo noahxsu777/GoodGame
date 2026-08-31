@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SectionHeading, Stat } from "@/components/ui";
+import { PrizeArt } from "@/components/prize-art";
 import { listWinners, platformStats } from "@/lib/queries";
 import { countryFlag, countryName, longDate, money, number, ticketCode } from "@/lib/format";
 
@@ -28,18 +29,14 @@ export default async function WinnersPage() {
 
       <div className="mt-10 space-y-5">
         {winners.map((g) => (
-          <article key={g.id} className="card p-6">
+          <article key={g.id} className="panel p-6">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <span
-                aria-hidden
-                className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl text-4xl"
-                style={{ background: `linear-gradient(135deg, ${g.art.from}, ${g.art.to})` }}
-              >
-                {g.art.emoji}
-              </span>
+              <div className="shrink-0">
+                <PrizeArt art={g.art} size="tile" />
+              </div>
 
               <div className="min-w-0 flex-1">
-                <h2 className="text-lg font-bold text-white">{g.title}</h2>
+                <h2 className="font-display text-lg font-bold uppercase tracking-tight text-white">{g.title}</h2>
                 <p className="mt-1 text-sm text-mist-400">
                   {longDate(g.result?.drawnAt ?? g.drawAt)} · {number(g.result?.ticketsSold ?? 0)} boletos
                   en el bombo · valor {money(g.retailCents)}
@@ -57,13 +54,13 @@ export default async function WinnersPage() {
               <div className="flex shrink-0 flex-col gap-2 sm:w-44">
                 <Link
                   href={`/sorteos/${g.slug}`}
-                  className="rounded-xl border border-ink-700 px-4 py-2.5 text-center text-sm font-semibold text-mist-200 hover:text-white"
+                  className="btn btn-ghost px-4 py-3 text-[11px]"
                 >
                   Ver sorteo
                 </Link>
                 <Link
                   href={`/verificar?sorteo=${g.slug}`}
-                  className="rounded-xl bg-gradient-to-r from-neon-500 to-aqua-500 px-4 py-2.5 text-center text-sm font-bold text-ink-950"
+                  className="btn btn-primary px-4 py-3 text-[11px]"
                 >
                   Verificar
                 </Link>

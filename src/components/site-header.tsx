@@ -21,7 +21,7 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink-800/80 bg-ink-950/85 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-ink-800/80 bg-void/85 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4 sm:px-6">
         <Link href="/" aria-label="GG Play — inicio">
           <Logo />
@@ -34,11 +34,17 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  active ? "bg-ink-800 text-white" : "text-mist-300 hover:bg-ink-850 hover:text-white"
+                className={`font-display relative px-3.5 py-2 text-[13px] font-semibold uppercase tracking-wide transition-colors ${
+                  active ? "text-white" : "text-mist-400 hover:text-white"
                 }`}
               >
                 {item.label}
+                {active && (
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-2 -bottom-px h-[2px] bg-gradient-to-r from-neon-500 to-aqua-500"
+                  />
+                )}
               </Link>
             );
           })}
@@ -48,23 +54,20 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
           {user ? (
             <>
               {user.role === "admin" && (
-                <Link
-                  href="/admin"
-                  className="rounded-lg border border-ink-700 px-3 py-2 text-sm font-medium text-mist-300 hover:text-white"
-                >
+                <Link href="/admin" className="btn btn-ghost px-4 py-2 text-[11px]">
                   Panel
                 </Link>
               )}
               <Link
                 href="/cuenta"
-                className="rounded-lg px-3 py-2 text-sm font-medium text-mist-200 hover:text-white"
+                className="font-display px-3 py-2 text-[13px] font-semibold uppercase tracking-wide text-mist-200 hover:text-white"
               >
                 {user.name.split(" ")[0]}
               </Link>
               <form action={logoutAction}>
                 <button
                   type="submit"
-                  className="rounded-lg border border-ink-700 px-3 py-2 text-sm font-medium text-mist-400 transition-colors hover:border-ink-600 hover:text-white"
+                  className="font-display px-3 py-2 text-[13px] font-semibold uppercase tracking-wide text-mist-400 transition-colors hover:text-white"
                 >
                   Salir
                 </button>
@@ -74,15 +77,12 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
             <>
               <Link
                 href="/entrar"
-                className="rounded-lg px-3 py-2 text-sm font-medium text-mist-300 hover:text-white"
+                className="font-display px-3 py-2 text-[13px] font-semibold uppercase tracking-wide text-mist-300 hover:text-white"
               >
                 Entrar
               </Link>
-              <Link
-                href="/registro"
-                className="rounded-lg bg-gradient-to-r from-neon-500 to-aqua-500 px-4 py-2 text-sm font-semibold text-ink-950 transition-transform hover:scale-[1.03]"
-              >
-                Crear cuenta gratis
+              <Link href="/registro" className="btn btn-primary px-5 py-2.5 text-[11px]">
+                Crear cuenta
               </Link>
             </>
           )}
@@ -93,7 +93,7 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label="Abrir menú"
-          className="ml-auto grid h-10 w-10 place-items-center rounded-lg border border-ink-700 text-mist-200 lg:hidden"
+          className="ml-auto grid h-10 w-10 place-items-center border border-ink-700 bg-ink-900 text-mist-200 lg:hidden"
         >
           <span className="sr-only">Menú</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -103,13 +103,13 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
       </div>
 
       {open && (
-        <div className="border-t border-ink-800 bg-ink-900 px-4 py-4 lg:hidden">
+        <div className="border-t border-ink-800 bg-ink-950 px-4 py-4 lg:hidden">
           <nav className="flex flex-col gap-1">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-mist-200 hover:bg-ink-850"
+                className="font-display border-l-2 border-transparent px-3 py-2.5 text-sm font-semibold uppercase tracking-wide text-mist-200 hover:border-neon-500 hover:bg-ink-900"
               >
                 {item.label}
               </Link>
@@ -120,14 +120,14 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
               <>
                 <Link
                   href="/cuenta"
-                  className="rounded-lg border border-ink-700 px-3 py-2.5 text-center text-sm font-medium"
+                  className="btn btn-ghost px-3 py-2.5 text-xs"
                 >
                   Mi cuenta
                 </Link>
                 {user.role === "admin" && (
                   <Link
                     href="/admin"
-                    className="rounded-lg border border-ink-700 px-3 py-2.5 text-center text-sm font-medium"
+                    className="btn btn-ghost px-3 py-2.5 text-xs"
                   >
                     Panel de administración
                   </Link>
@@ -135,7 +135,7 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
                 <form action={logoutAction}>
                   <button
                     type="submit"
-                    className="w-full rounded-lg px-3 py-2.5 text-sm font-medium text-mist-400"
+                    className="font-display w-full px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-mist-400"
                   >
                     Cerrar sesión
                   </button>
@@ -145,13 +145,13 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
               <>
                 <Link
                   href="/entrar"
-                  className="rounded-lg border border-ink-700 px-3 py-2.5 text-center text-sm font-medium"
+                  className="btn btn-ghost px-3 py-2.5 text-xs"
                 >
                   Entrar
                 </Link>
                 <Link
                   href="/registro"
-                  className="rounded-lg bg-gradient-to-r from-neon-500 to-aqua-500 px-3 py-2.5 text-center text-sm font-semibold text-ink-950"
+                  className="btn btn-primary px-3 py-2.5 text-xs"
                 >
                   Crear cuenta gratis
                 </Link>

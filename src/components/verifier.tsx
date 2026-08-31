@@ -4,9 +4,8 @@ import { useState } from "react";
 import { verifyDraw, type DrawVerification } from "@/lib/draw";
 import { Alert } from "./ui";
 
-const field =
-  "w-full rounded-xl border border-ink-700 bg-ink-900 px-4 py-3 font-mono text-xs text-white outline-none focus:border-neon-500";
-const label = "block text-xs font-semibold uppercase tracking-wide text-mist-400";
+const field = "field px-4 py-3 font-mono text-xs";
+const label = "block text-[10px] font-semibold uppercase tracking-[0.18em] text-mist-400";
 
 export type VerifiableDraw = {
   slug: string;
@@ -62,7 +61,7 @@ export function Verifier({ draws, initialSlug }: { draws: VerifiableDraw[]; init
   }
 
   return (
-    <div className="card p-6">
+    <div className="panel p-6">
       {draws.length > 0 && (
         <div className="mb-6">
           <label className={label} htmlFor="draw">
@@ -72,7 +71,7 @@ export function Verifier({ draws, initialSlug }: { draws: VerifiableDraw[]; init
             id="draw"
             defaultValue={first?.slug}
             onChange={(e) => load(e.target.value)}
-            className="mt-2 w-full rounded-xl border border-ink-700 bg-ink-900 px-4 py-3 text-sm text-white outline-none focus:border-neon-500"
+            className="field mt-2 px-4 py-3 text-sm"
           >
             {draws.map((d) => (
               <option key={d.slug} value={d.slug}>
@@ -149,7 +148,7 @@ export function Verifier({ draws, initialSlug }: { draws: VerifiableDraw[]; init
         type="button"
         onClick={run}
         disabled={busy}
-        className="mt-6 w-full rounded-xl bg-gradient-to-r from-neon-500 to-aqua-500 px-5 py-3.5 text-sm font-bold text-ink-950 disabled:opacity-60"
+        className="btn btn-primary mt-7 w-full px-5 py-3.5 text-xs disabled:opacity-60"
       >
         {busy ? "Calculando…" : "Recalcular el sorteo"}
       </button>
@@ -172,7 +171,7 @@ export function Verifier({ draws, initialSlug }: { draws: VerifiableDraw[]; init
               ? `✓ El cálculo da el boleto ${result.computed.winningTicket}, el mismo que se anunció.`
               : `✗ El cálculo da el boleto ${result.computed.winningTicket}, distinto del anunciado.`}
           </Alert>
-          <div className="rounded-xl border border-ink-700 bg-ink-950 p-4">
+          <div className="border border-ink-700 bg-void p-4">
             <p className="text-xs uppercase tracking-wide text-mist-400">HMAC-SHA256 resultante</p>
             <p className="mt-1 break-all font-mono text-xs text-mist-300">{result.computed.digest}</p>
           </div>

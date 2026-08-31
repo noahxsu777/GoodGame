@@ -28,38 +28,46 @@ export function Countdown({ to, compact = false }: { to: string; compact?: boole
   }, [target]);
 
   if (left === null) {
-    return <span className="text-mist-400">{compact ? "—" : "Calculando…"}</span>;
+    return <span className="font-mono text-mist-400">{compact ? "--:--" : "Calculando…"}</span>;
   }
 
   if (left <= 0) {
-    return <span className="font-semibold text-flame-500">Sorteo en curso</span>;
+    return <span className="font-display font-bold uppercase text-flame-500">Sorteo en curso</span>;
   }
 
   const { d, h, m, s } = parts(left);
 
   if (compact) {
     return (
-      <span className="tabular-nums font-semibold text-white">
-        {d > 0 ? `${d}d ${h}h` : `${h}h ${String(m).padStart(2, "0")}m`}
+      <span className="font-mono text-sm font-bold tabular-nums text-white">
+        {d > 0 ? `${d}d ${String(h).padStart(2, "0")}h` : `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`}
       </span>
     );
   }
 
   const cells: [number, string][] = [
     [d, "días"],
-    [h, "horas"],
+    [h, "hrs"],
     [m, "min"],
     [s, "seg"],
   ];
 
   return (
     <div className="grid grid-cols-4 gap-2">
-      {cells.map(([value, label]) => (
-        <div key={label} className="rounded-xl border border-ink-700 bg-ink-900/80 px-2 py-3 text-center">
-          <p className="text-xl font-extrabold tabular-nums text-white sm:text-2xl">
+      {cells.map(([value, label], i) => (
+        <div
+          key={label}
+          className="relative border border-ink-700 bg-ink-950/90 px-1 py-3 text-center"
+          style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+        >
+          <p
+            className={`font-display text-2xl font-bold tabular-nums ${
+              i === 3 ? "text-aqua-400" : "text-white"
+            }`}
+          >
             {String(value).padStart(2, "0")}
           </p>
-          <p className="text-[10px] uppercase tracking-wide text-mist-400">{label}</p>
+          <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-mist-400">{label}</p>
         </div>
       ))}
     </div>

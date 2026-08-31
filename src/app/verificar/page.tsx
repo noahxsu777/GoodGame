@@ -59,7 +59,7 @@ export default async function VerifyPage({
       <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-start">
         <ol className="space-y-4">
           {STEPS.map((step, i) => (
-            <li key={step.title} className="card p-6">
+            <li key={step.title} className="panel p-6">
               <span className="text-xs font-black tracking-widest text-neon-400">
                 0{i + 1}
               </span>

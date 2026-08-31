@@ -46,11 +46,7 @@ export default async function SorteosPage({
             <Link
               key={filter.key}
               href={filter.key === "todos" ? "/sorteos" : `/sorteos?categoria=${filter.key}`}
-              className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-                active
-                  ? "border-neon-500 bg-neon-500/15 text-white"
-                  : "border-ink-700 text-mist-300 hover:border-ink-600 hover:text-white"
-              }`}
+              className={`chip px-4 py-2.5 ${active ? "chip-active" : ""}`}
             >
               {filter.label}
             </Link>

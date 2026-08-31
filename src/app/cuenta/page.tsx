@@ -30,7 +30,7 @@ export default async function AccountPage() {
           {user.name.slice(0, 2).toUpperCase()}
         </span>
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-white">Hola, {user.name.split(" ")[0]}</h1>
+          <h1 className="headline text-2xl text-white">Hola, {user.name.split(" ")[0]}</h1>
           <p className="text-sm text-mist-400">
             {countryFlag(user.country)} {countryName(user.country)} · miembro desde{" "}
             {shortDate(user.createdAt)}
@@ -39,7 +39,7 @@ export default async function AccountPage() {
         {user.role === "admin" && (
           <Link
             href="/admin"
-            className="ml-auto rounded-xl border border-ink-700 px-4 py-2.5 text-sm font-semibold text-mist-200 hover:text-white"
+            className="btn btn-ghost ml-auto px-5 py-3 text-[11px]"
           >
             Panel de administración
           </Link>
@@ -61,7 +61,7 @@ export default async function AccountPage() {
               <Link
                 key={entry.id}
                 href={`/sorteos/${giveaway.slug}`}
-                className="card card-hover border-lime-500/40 p-5"
+                className="panel panel-hover border-lime-500/40 p-5"
               >
                 <Badge tone="live">Ganador</Badge>
                 <p className="mt-3 font-bold text-white">{giveaway.title}</p>
@@ -90,7 +90,7 @@ export default async function AccountPage() {
             </p>
             <Link
               href="/sorteos"
-              className="mt-6 inline-block rounded-xl bg-gradient-to-r from-neon-500 to-aqua-500 px-5 py-3 text-sm font-bold text-ink-950"
+              className="btn btn-primary mt-7 px-6 py-3.5 text-xs"
             >
               Ver sorteos abiertos
             </Link>

@@ -61,16 +61,16 @@ export default function HowItWorksPage() {
 
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {FLOW.map((step) => (
-          <div key={step.n} className="card p-6">
+          <div key={step.n} className="panel p-6">
             <span className="text-sm font-black tracking-widest text-neon-400">{step.n}</span>
-            <h3 className="mt-3 text-base font-bold text-white">{step.title}</h3>
+            <h3 className="font-display mt-4 text-base font-bold uppercase tracking-tight text-white">{step.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-mist-400">{step.body}</p>
           </div>
         ))}
       </div>
 
       <section className="mt-16">
-        <h2 className="text-xl font-extrabold tracking-tight text-white">Las reglas, en corto</h2>
+        <h2 className="headline text-xl text-white sm:text-2xl">Las reglas, en corto</h2>
         <dl className="mt-6 divide-y divide-ink-800 border-y border-ink-800">
           {RULES.map(([term, description]) => (
             <div key={term} className="grid gap-2 py-4 sm:grid-cols-[220px_1fr]">
@@ -88,8 +88,8 @@ export default function HowItWorksPage() {
         </p>
       </section>
 
-      <section className="card mt-16 p-8 text-center sm:p-12">
-        <h2 className="text-2xl font-extrabold tracking-tight text-white">
+      <section className="panel mt-16 p-8 text-center sm:p-12">
+        <h2 className="headline text-2xl text-white">
           ¿Listo para tu primer boleto?
         </h2>
         <p className="mx-auto mt-3 max-w-lg text-sm text-mist-400">
@@ -98,13 +98,13 @@ export default function HowItWorksPage() {
         <div className="mt-7 flex flex-wrap justify-center gap-3">
           <Link
             href="/registro"
-            className="rounded-xl bg-gradient-to-r from-neon-500 to-aqua-500 px-6 py-3.5 text-sm font-bold text-ink-950"
+            className="btn btn-primary px-7 py-4 text-sm"
           >
             Crear cuenta gratis
           </Link>
           <Link
             href="/sorteos"
-            className="rounded-xl border border-ink-700 px-6 py-3.5 text-sm font-semibold text-mist-200 hover:text-white"
+            className="btn btn-ghost px-7 py-4 text-sm"
           >
             Ver sorteos
           </Link>

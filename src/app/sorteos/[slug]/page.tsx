@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Countdown } from "@/components/countdown";
+import { PrizeArt } from "@/components/prize-art";
 import { TicketPicker } from "@/components/ticket-picker";
 import { Alert, Badge, Progress } from "@/components/ui";
 import { GiveawayCard } from "@/components/giveaway-card";
@@ -60,13 +61,8 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
 
       <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:items-start">
         <div>
-          <div
-            className="flex h-56 items-center justify-center rounded-3xl sm:h-72"
-            style={{ background: `linear-gradient(135deg, ${giveaway.art.from}, ${giveaway.art.to})` }}
-          >
-            <span aria-hidden className="text-8xl drop-shadow-2xl">
-              {giveaway.art.emoji}
-            </span>
+          <div className="panel hud overflow-hidden" style={{ ["--cut" as string]: "22px" }}>
+            <PrizeArt art={giveaway.art} size="wide" />
           </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-2">
@@ -81,21 +77,21 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
             <Badge tone="free">1 boleto gratis por cuenta</Badge>
           </div>
 
-          <h1 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">
+          <h1 className="headline mt-5 text-3xl text-white sm:text-5xl">
             {giveaway.title}
           </h1>
           <p className="mt-3 text-base leading-relaxed text-mist-300">{giveaway.tagline}</p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            <div className="card p-5">
+            <div className="panel p-5">
               <p className="text-xs uppercase tracking-wide text-mist-400">Valor del premio</p>
               <p className="mt-1 text-xl font-extrabold text-white">{money(giveaway.retailCents)}</p>
             </div>
-            <div className="card p-5">
+            <div className="panel p-5">
               <p className="text-xs uppercase tracking-wide text-mist-400">Participantes</p>
               <p className="mt-1 text-xl font-extrabold text-white">{number(giveaway.participants)}</p>
             </div>
-            <div className="card p-5">
+            <div className="panel p-5">
               <p className="text-xs uppercase tracking-wide text-mist-400">Boletos vendidos</p>
               <p className="mt-1 text-xl font-extrabold text-white">
                 {number(giveaway.ticketsSold)}
@@ -104,7 +100,7 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
             </div>
           </div>
 
-          <div className="card mt-6 p-6">
+          <div className="panel mt-6 p-6">
             <Progress
               value={giveaway.progress}
               label={
@@ -118,7 +114,7 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
           </div>
 
           <section className="mt-10">
-            <h2 className="text-lg font-bold text-white">Qué incluye el premio</h2>
+            <h2 className="font-display text-lg font-bold uppercase tracking-tight text-white">Qué incluye el premio</h2>
             <ul className="mt-4 space-y-2.5">
               {giveaway.prize.map((item) => (
                 <li key={item} className="flex gap-3 text-sm text-mist-300">
@@ -133,9 +129,9 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
           </section>
 
           {/* -------------------------------------------------- verificabilidad */}
-          <section className="card mt-10 p-6">
+          <section className="panel mt-10 p-6">
             <div className="flex items-center justify-between gap-4">
-              <h2 className="text-lg font-bold text-white">Sorteo verificable</h2>
+              <h2 className="font-display text-lg font-bold uppercase tracking-tight text-white">Sorteo verificable</h2>
               <Link href="/verificar" className="text-sm font-semibold text-aqua-400 hover:underline">
                 Comprobar
               </Link>
@@ -174,8 +170,8 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
           </section>
 
           {giveaway.result && (
-            <section className="card mt-6 border-aqua-500/40 p-6">
-              <h2 className="text-lg font-bold text-white">Resultado</h2>
+            <section className="panel mt-6 border-aqua-500/40 p-6">
+              <h2 className="font-display text-lg font-bold uppercase tracking-tight text-white">Resultado</h2>
               <div className="mt-4 flex flex-wrap items-center gap-6">
                 <div>
                   <p className="text-xs uppercase tracking-wide text-mist-400">Boleto ganador</p>
@@ -201,7 +197,7 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
 
         {/* --------------------------------------------------------- barra lateral */}
         <aside className="space-y-6 lg:sticky lg:top-24">
-          <div className="card p-6">
+          <div className="panel p-6">
             <p className="text-xs uppercase tracking-wide text-mist-400">
               {giveaway.status === "drawn" ? "Sorteado el" : "Sorteo en vivo"}
             </p>
@@ -215,15 +211,15 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
               href={giveaway.liveUrl}
               target="_blank"
               rel="noreferrer noopener"
-              className="mt-4 block rounded-xl border border-ink-700 px-4 py-2.5 text-center text-sm font-semibold text-mist-200 hover:border-neon-500/60 hover:text-white"
+              className="btn btn-ghost mt-5 w-full py-3 text-[11px]"
             >
               Ver el directo ↗
             </a>
           </div>
 
           {myTickets.length > 0 && (
-            <div className="card p-6">
-              <p className="text-sm font-bold text-white">
+            <div className="panel p-6">
+              <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
                 Tus boletos ({myTickets.length})
               </p>
               <div className="mt-3 flex flex-wrap gap-1.5">
@@ -267,7 +263,7 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
 
       {related.length > 0 && (
         <section className="mt-20">
-          <h2 className="text-xl font-extrabold tracking-tight text-white">También abiertos</h2>
+          <h2 className="headline text-xl text-white sm:text-2xl">También abiertos</h2>
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((g) => (
               <GiveawayCard key={g.id} giveaway={g} />

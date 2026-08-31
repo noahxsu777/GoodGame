@@ -28,7 +28,7 @@ page.on("pageerror", (e) => errors.push(String(e)));
 // 1. Portada
 await page.goto(BASE, { waitUntil: "networkidle" });
 check("portada muestra el nombre", (await page.title()).includes("GG Play"));
-check("hero con sorteos abiertos", (await page.getByText(/sorteos abiertos ahora mismo/i).count()) > 0);
+check("hero con sorteos abiertos", (await page.getByText(/sorteos abiertos ahora/i).count()) > 0);
 check("tarjetas de sorteo listadas", (await page.locator('a[href^="/sorteos/"]').count()) >= 4);
 
 // 2. Registro de un usuario nuevo
@@ -61,7 +61,7 @@ check("compra simulada asigna 5 boletos", true);
 // 5. La cuenta refleja las participaciones
 await page.goto(`${BASE}/cuenta`);
 const bodyText = await page.locator("body").innerText();
-const totalBoletos = (await page.locator(".card", { hasText: /boletos totales/i }).first().innerText()).trim();
+const totalBoletos = (await page.locator(".panel", { hasText: /boletos totales/i }).first().innerText()).trim();
 check("historial suma 6 boletos (1 gratis + 5 comprados)", totalBoletos.startsWith("6"), totalBoletos.replace("\n", " "));
 check("historial marca el boleto gratuito", /Gratis/.test(bodyText));
 

@@ -10,9 +10,8 @@ import {
 } from "@/lib/actions";
 import { Alert } from "./ui";
 
-const field =
-  "w-full rounded-xl border border-ink-700 bg-ink-900 px-3.5 py-2.5 text-sm text-white outline-none focus:border-neon-500";
-const label = "block text-xs font-semibold uppercase tracking-wide text-mist-400";
+const field = "field px-3.5 py-2.5 text-sm";
+const label = "block text-[10px] font-semibold uppercase tracking-[0.18em] text-mist-400";
 
 function Submit({ children, tone = "primary" }: { children: React.ReactNode; tone?: "primary" | "ghost" }) {
   const { pending } = useFormStatus();
@@ -22,8 +21,8 @@ function Submit({ children, tone = "primary" }: { children: React.ReactNode; ton
       disabled={pending}
       className={
         tone === "primary"
-          ? "rounded-xl bg-gradient-to-r from-neon-500 to-aqua-500 px-4 py-2.5 text-sm font-bold text-ink-950 disabled:opacity-60"
-          : "rounded-xl border border-ink-700 px-4 py-2.5 text-sm font-semibold text-mist-200 hover:text-white disabled:opacity-60"
+          ? "btn btn-primary px-5 py-2.5 text-xs disabled:opacity-60"
+          : "btn btn-ghost px-5 py-2.5 text-xs disabled:opacity-60"
       }
     >
       {pending ? "…" : children}

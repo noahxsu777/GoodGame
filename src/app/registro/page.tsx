@@ -25,7 +25,7 @@ export default async function RegisterPage({
     <div className="aurora relative border-b border-ink-800">
       <div className="mx-auto grid max-w-4xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 md:items-start">
         <div>
-          <h1 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
+          <h1 className="headline text-3xl text-white sm:text-5xl">
             Crea tu cuenta gratis
           </h1>
           <p className="mt-3 text-sm leading-relaxed text-mist-300">
@@ -44,7 +44,7 @@ export default async function RegisterPage({
           </ul>
         </div>
 
-        <div className="card p-6">
+        <div className="panel p-6">
           <AuthForm mode="register" next={next} />
         </div>
       </div>

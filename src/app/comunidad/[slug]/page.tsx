@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { PrizeArt } from "@/components/prize-art";
 import { getPost, listPosts } from "@/lib/queries";
 import { shortDate } from "@/lib/format";
 
@@ -32,12 +33,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <span className="capitalize text-mist-300">{post.kind}</span>
       </nav>
 
-      <div
-        className="flex h-48 items-center justify-center rounded-3xl text-6xl"
-        style={{ background: `linear-gradient(135deg, ${post.art.from}, ${post.art.to})` }}
-        aria-hidden
-      >
-        {post.art.emoji}
+      <div className="panel hud overflow-hidden" style={{ ["--cut" as string]: "20px" }}>
+        <PrizeArt art={post.art} size="hero" />
       </div>
 
       <h1 className="mt-8 text-3xl font-black leading-tight tracking-tight text-white sm:text-4xl">
@@ -63,14 +60,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <Link
               key={p.id}
               href={`/comunidad/${p.slug}`}
-              className="card card-hover flex min-w-0 items-center gap-4 p-4"
+              className="panel panel-hover flex min-w-0 items-center gap-4 p-4"
             >
-              <span
-                aria-hidden
-                className="grid h-12 w-12 shrink-0 place-items-center rounded-xl text-2xl"
-                style={{ background: `linear-gradient(135deg, ${p.art.from}, ${p.art.to})` }}
-              >
-                {p.art.emoji}
+              <span className="shrink-0">
+                <PrizeArt art={p.art} size="tile" />
               </span>
               <span className="min-w-0">
                 <span className="block truncate text-sm font-semibold text-white">{p.title}</span>

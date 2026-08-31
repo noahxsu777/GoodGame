@@ -38,7 +38,12 @@ export type Giveaway = {
   /** Fecha del sorteo en vivo (ISO). */
   drawAt: string;
   liveUrl: string;
-  art: { from: string; to: string; emoji: string };
+  /**
+   * `image` es la foto real del premio (ruta en /public o URL) y manda sobre
+   * todo lo demás; `shape` es la ilustración vectorial de respaldo y `emoji`
+   * el último recurso.
+   */
+  art: { from: string; to: string; emoji: string; shape?: string; image?: string };
   status: GiveawayStatus;
   /** Compromiso público: sha256 del serverSeed, publicado antes de vender boletos. */
   seedHash: string;

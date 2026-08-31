@@ -38,12 +38,12 @@ export default async function AdminPage() {
       </div>
 
       <section className="mt-14">
-        <h2 className="text-xl font-extrabold tracking-tight text-white">Sorteos</h2>
+        <h2 className="headline text-xl text-white sm:text-2xl">Sorteos</h2>
         <div className="mt-6 space-y-4">
           {giveaways.map((g) => {
             const readyToDraw = g.status !== "drawn" && g.ticketsSold >= g.minTickets;
             return (
-              <article key={g.id} className="card p-6">
+              <article key={g.id} className="panel p-6">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
@@ -53,7 +53,7 @@ export default async function AdminPage() {
                       {g.status === "drawn" && <Badge tone="done">Sorteado</Badge>}
                       <span className="text-xs text-mist-400">{longDate(g.drawAt)}</span>
                     </div>
-                    <h3 className="mt-2 text-lg font-bold text-white">
+                    <h3 className="font-display mt-2 text-lg font-bold uppercase tracking-tight text-white">
                       {g.art.emoji} {g.title}
                     </h3>
                     <p className="mt-1 text-sm text-mist-400">
@@ -78,7 +78,7 @@ export default async function AdminPage() {
                 </div>
 
                 {g.status === "drawn" && g.result ? (
-                  <div className="mt-5 rounded-xl border border-ink-700 bg-ink-950 p-4 text-sm">
+                  <div className="mt-5 border border-ink-700 bg-void p-4 text-sm">
                     <p className="text-white">
                       Boleto ganador{" "}
                       <span className="font-mono text-aqua-400">#{g.result.winningTicket}</span> —{" "}
@@ -107,8 +107,8 @@ export default async function AdminPage() {
       </section>
 
       <section className="mt-16">
-        <h2 className="text-xl font-extrabold tracking-tight text-white">Crear un sorteo nuevo</h2>
-        <div className="card mt-6 p-6">
+        <h2 className="headline text-xl text-white sm:text-2xl">Crear un sorteo nuevo</h2>
+        <div className="panel mt-6 p-6">
           <CreateGiveawayForm />
         </div>
       </section>

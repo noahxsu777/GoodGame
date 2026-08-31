@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Badge, Progress } from "./ui";
+import { Badge, LiveDot, Progress } from "./ui";
 import { Countdown } from "./countdown";
+import { PrizeArt } from "./prize-art";
 import { CATEGORY_LABEL, money, number } from "@/lib/format";
 import type { GiveawayView } from "@/lib/queries";
 
@@ -11,69 +12,76 @@ export function GiveawayCard({ giveaway }: { giveaway: GiveawayView }) {
   return (
     <Link
       href={`/sorteos/${giveaway.slug}`}
-      className="card card-hover group flex flex-col overflow-hidden"
+      className="panel panel-hover group flex flex-col overflow-hidden"
     >
-      <div
-        className="relative flex h-40 items-center justify-center overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${giveaway.art.from}, ${giveaway.art.to})` }}
-      >
-        <span aria-hidden className="text-6xl drop-shadow-lg transition-transform duration-300 group-hover:scale-110">
-          {giveaway.art.emoji}
-        </span>
-        <div className="absolute left-3 top-3 flex gap-2">
+      <div className="sheen relative">
+        <PrizeArt art={giveaway.art} size="card" />
+        <div className="absolute left-3 top-3 z-[2] flex gap-2">
           {giveaway.status === "live" && (
             <Badge tone="live">
-              <span className="live-dot h-1.5 w-1.5 rounded-full bg-lime-500" /> Abierto
+              <LiveDot /> Abierto
             </Badge>
           )}
           {giveaway.status === "closed" && <Badge tone="warn">Venta cerrada</Badge>}
           {giveaway.status === "drawn" && <Badge tone="done">Sorteado</Badge>}
         </div>
-        <span className="absolute right-3 top-3 rounded-full bg-ink-950/70 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur">
+        <span className="font-display absolute right-3 top-3 z-[2] bg-void/75 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-mist-200 backdrop-blur">
           {CATEGORY_LABEL[giveaway.category]}
+        </span>
+        <span className="font-display absolute bottom-3 left-3 z-[2] text-[11px] font-semibold uppercase tracking-[0.14em] text-white/85">
+          Valor {money(giveaway.retailCents)}
         </span>
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-base font-bold leading-snug text-white">{giveaway.title}</h3>
-        <p className="mt-1.5 line-clamp-2 text-sm text-mist-400">{giveaway.tagline}</p>
+        <h3 className="font-display text-[17px] font-bold uppercase leading-tight tracking-tight text-white">
+          {giveaway.title}
+        </h3>
+        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-mist-400">{giveaway.tagline}</p>
 
-        <div className="mt-4 flex items-center justify-between text-sm">
-          <span className="text-mist-400">
-            Valor <span className="font-semibold text-mist-200">{money(giveaway.retailCents)}</span>
-          </span>
-          {giveaway.status === "live" ? (
-            <span className="text-mist-400">
-              Boleto <span className="font-semibold text-white">{money(giveaway.ticketPriceCents)}</span>
-            </span>
-          ) : giveaway.result ? (
-            <span className="text-aqua-400">Boleto #{number(giveaway.result.winningTicket)}</span>
-          ) : null}
-        </div>
-
-        <div className="mt-4">
+        <div className="mt-5">
           <Progress
             value={giveaway.progress}
-            label={`${number(giveaway.ticketsSold)} de ${number(giveaway.totalTickets)} boletos · ${number(
-              giveaway.participants,
-            )} participantes`}
+            label={
+              <span className="flex items-center justify-between font-mono text-[11px]">
+                <span className="text-mist-300">
+                  {number(giveaway.ticketsSold)}
+                  <span className="text-mist-400">/{number(giveaway.totalTickets)}</span>
+                </span>
+                <span className="text-mist-400">{number(giveaway.participants)} jugadores</span>
+              </span>
+            }
           />
         </div>
 
-        <div className="mt-5 flex items-center justify-between border-t border-ink-800 pt-4 text-sm">
+        <div className="mt-auto flex items-center justify-between gap-3 border-t border-ink-800 pt-4">
           {giveaway.status === "drawn" ? (
-            <span className="text-mist-400">
-              Ganó <span className="font-semibold text-white">{giveaway.result?.winnerName}</span>
-            </span>
+            <>
+              <span className="text-xs uppercase tracking-wide text-mist-400">Ganó</span>
+              <span className="truncate font-display text-sm font-semibold text-lime-400">
+                {giveaway.result?.winnerName}
+              </span>
+            </>
           ) : (
             <>
-              <span className={closingSoon ? "text-flame-500" : "text-mist-400"}>
+              <span
+                className={`text-[10px] font-semibold uppercase tracking-[0.16em] ${
+                  closingSoon ? "text-flame-500" : "text-mist-400"
+                }`}
+              >
                 {closingSoon ? "Cierra pronto" : "Sortea en"}
               </span>
               <Countdown to={giveaway.drawAt} compact />
             </>
           )}
         </div>
+
+        {giveaway.status === "live" && (
+          <p className="font-display mt-4 flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-mist-300">
+            <span>Desde {money(giveaway.ticketPriceCents)}</span>
+            <span className="text-aqua-400 transition-transform group-hover:translate-x-1">Participar →</span>
+          </p>
+        )}
       </div>
     </Link>
   );

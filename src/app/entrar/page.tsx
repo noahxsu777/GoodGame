@@ -17,16 +17,16 @@ export default async function LoginPage({
   return (
     <div className="aurora relative border-b border-ink-800">
       <div className="mx-auto max-w-md px-4 py-16 sm:px-6">
-        <h1 className="text-3xl font-black tracking-tight text-white">Entrar a GG Play</h1>
+        <h1 className="headline text-3xl text-white sm:text-4xl">Entrar a GG Play</h1>
         <p className="mt-2 text-sm text-mist-400">
           Tus boletos, tus sorteos y tus avisos de resultado, en un solo lugar.
         </p>
 
-        <div className="card mt-8 p-6">
+        <div className="panel mt-8 p-6">
           <AuthForm mode="login" next={next} />
         </div>
 
-        <div className="card mt-6 p-5 text-sm text-mist-400">
+        <div className="panel mt-6 p-5 text-sm text-mist-400">
           <p className="font-semibold text-mist-200">Cuentas de prueba de esta demo</p>
           <p className="mt-2">
             Jugador: <code className="text-aqua-400">demo@ggplay.gg</code> ·{" "}

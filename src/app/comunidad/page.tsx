@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/ui";
+import { PrizeArt } from "@/components/prize-art";
 import { listPosts } from "@/lib/queries";
 import { shortDate } from "@/lib/format";
 
@@ -40,11 +41,7 @@ export default async function CommunityPage({
             <Link
               key={tab.key}
               href={tab.key === "todo" ? "/comunidad" : `/comunidad?tipo=${tab.key}`}
-              className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-                active
-                  ? "border-neon-500 bg-neon-500/15 text-white"
-                  : "border-ink-700 text-mist-300 hover:border-ink-600 hover:text-white"
-              }`}
+              className={`chip px-4 py-2.5 ${active ? "chip-active" : ""}`}
             >
               {tab.label}
             </Link>
@@ -54,20 +51,16 @@ export default async function CommunityPage({
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((post) => (
-          <Link key={post.id} href={`/comunidad/${post.slug}`} className="card card-hover overflow-hidden">
-            <div
-              className="flex h-36 items-center justify-center text-5xl"
-              style={{ background: `linear-gradient(135deg, ${post.art.from}, ${post.art.to})` }}
-              aria-hidden
-            >
-              {post.art.emoji}
+          <Link key={post.id} href={`/comunidad/${post.slug}`} className="panel panel-hover group overflow-hidden">
+            <div className="sheen">
+              <PrizeArt art={post.art} size="card" />
             </div>
             <div className="p-5">
               <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-neon-400">
                 <span>{post.kind}</span>
                 {post.duration && <span className="text-mist-400">· {post.duration}</span>}
               </div>
-              <h2 className="mt-2 text-base font-bold leading-snug text-white">{post.title}</h2>
+              <h2 className="font-display mt-2.5 text-base font-bold uppercase leading-tight tracking-tight text-white">{post.title}</h2>
               <p className="mt-2 line-clamp-3 text-sm text-mist-400">{post.excerpt}</p>
               <p className="mt-4 text-xs text-mist-400">
                 {post.author} · {shortDate(post.publishedAt)}

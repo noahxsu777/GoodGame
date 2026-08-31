@@ -85,6 +85,28 @@ Está implementado con Web Crypto en vez de `node:crypto` a propósito: así el
 mismo código corre en el servidor y en el cliente, y la página de verificación
 no depende de que la API diga la verdad.
 
+## Diseño
+
+Estética de retransmisión esports: fondo casi negro azulado, tipografía angular
+(Chakra Petch) para titulares y monoespaciada para cifras, paneles con la
+esquina cortada dibujados en dos capas para que el borde de 1 px siga también la
+diagonal, brillos neón, grano fino sobre todo el lienzo y detalles de HUD.
+
+### Imágenes de los premios
+
+Cada premio se pinta dentro de un mismo escenario —foco cenital, rejilla en
+fuga, línea de horizonte, reflejo en el suelo y viñeta— con tres niveles:
+
+1. **Foto real** (`art.image`): una ruta en `/public/premios` o una URL. Manda
+   sobre todo lo demás. Ver [`public/premios/LEEME.md`](public/premios/LEEME.md).
+2. **Ilustración vectorial** (`art.shape`): hardware genérico y sin marcas
+   dibujado en `src/components/prize-illustrations.tsx` con proyección dimétrica
+   2:1 y una regla de sombreado común (cara superior clara, izquierda media,
+   derecha oscura). Es lo que se ve si no hay foto.
+3. **Emoji** (`art.emoji`): último recurso.
+
+Si una foto no carga, la tarjeta cae al nivel siguiente en vez de romperse.
+
 ## Decisiones técnicas
 
 - **Next.js 15 + React 19 + TypeScript estricto.** Todo el estado vive en
