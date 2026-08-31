@@ -46,7 +46,7 @@ export function SiteFooter() {
               {["TikTok", "YouTube", "Discord", "Instagram"].map((red) => (
                 <span
                   key={red}
-                  className="font-display border border-ink-700 bg-ink-900 px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-mist-400 transition-colors hover:border-neon-500/60 hover:text-white"
+                  className="font-display border border-ink-700 bg-ink-900 px-2.5 py-1.5 text-[10px] font-semibold tracking-wide text-mist-400 transition-colors hover:border-neon-500/60 hover:text-white"
                 >
                   {red}
                 </span>
@@ -56,7 +56,7 @@ export function SiteFooter() {
 
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <h3 className="font-display text-[11px] font-semibold uppercase tracking-[0.2em] text-neon-400">
+              <h3 className="font-display text-[11px] font-semibold tracking-[0.2em] text-neon-400">
                 {col.title}
               </h3>
               <ul className="mt-4 space-y-2.5">

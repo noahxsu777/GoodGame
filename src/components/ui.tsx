@@ -9,17 +9,16 @@ export function Badge({
   tone?: "neutral" | "live" | "warn" | "done" | "free" | "gold";
 }) {
   const tones: Record<string, string> = {
-    neutral: "border-ink-600 bg-ink-850/90 text-mist-300",
-    live: "border-lime-500/50 bg-lime-500/12 text-lime-400 shadow-[0_0_18px_-6px_var(--color-lime-500)]",
-    warn: "border-flame-500/50 bg-flame-500/12 text-flame-500",
-    done: "border-aqua-500/50 bg-aqua-500/12 text-aqua-400",
-    free: "border-neon-500/50 bg-neon-500/14 text-neon-400",
-    gold: "border-gold-500/50 bg-gold-500/12 text-gold-500",
+    neutral: "border-white/10 bg-white/5 text-mist-300",
+    live: "border-lime-500/35 bg-lime-500/10 text-lime-400",
+    warn: "border-flame-500/35 bg-flame-500/10 text-flame-500",
+    done: "border-aqua-500/35 bg-aqua-500/10 text-aqua-400",
+    free: "border-neon-500/35 bg-neon-500/12 text-neon-400",
+    gold: "border-gold-500/35 bg-gold-500/10 text-gold-500",
   };
   return (
     <span
-      className={`font-display inline-flex items-center gap-1.5 border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${tones[tone]}`}
-      style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium ${tones[tone]}`}
     >
       {children}
     </span>
@@ -56,10 +55,7 @@ export function SectionHeading({
     <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
       <div className="max-w-2xl">
         {eyebrow && (
-          <p className="eyebrow flex items-center gap-2 text-neon-400">
-            <span aria-hidden className="inline-block h-3 w-[3px] bg-neon-500" />
-            {eyebrow}
-          </p>
+          <p className="eyebrow text-neon-400">{eyebrow}</p>
         )}
         <h2 className="headline mt-3 text-[1.75rem] text-white sm:text-4xl">{title}</h2>
         {description && <p className="mt-3.5 text-sm leading-relaxed text-mist-400">{description}</p>}
@@ -89,9 +85,9 @@ export function Alert({ tone, children }: { tone: "error" | "ok" | "info"; child
 export function Stat({ value, label, tone }: { value: string; label: string; tone?: "neon" | "lime" }) {
   const color = tone === "lime" ? "text-lime-400" : tone === "neon" ? "text-aqua-400" : "text-white";
   return (
-    <div className="panel hud px-5 py-6 text-center" style={{ ["--cut" as string]: "12px" }}>
-      <p className={`font-display text-3xl font-bold tabular-nums tracking-tight ${color}`}>{value}</p>
-      <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-mist-400">{label}</p>
+    <div className="panel px-5 py-6 text-center">
+      <p className={`font-display text-[2rem] font-semibold tabular-nums ${color}`}>{value}</p>
+      <p className="mt-1.5 text-[13px] text-mist-400">{label}</p>
     </div>
   );
 }

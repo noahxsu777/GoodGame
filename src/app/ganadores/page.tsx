@@ -36,7 +36,7 @@ export default async function WinnersPage() {
               </div>
 
               <div className="min-w-0 flex-1">
-                <h2 className="font-display text-lg font-bold uppercase tracking-tight text-white">{g.title}</h2>
+                <h2 className="font-display text-lg font-bold tracking-tight text-white">{g.title}</h2>
                 <p className="mt-1 text-sm text-mist-400">
                   {longDate(g.result?.drawnAt ?? g.drawAt)} · {number(g.result?.ticketsSold ?? 0)} boletos
                   en el bombo · valor {money(g.retailCents)}

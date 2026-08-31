@@ -33,7 +33,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <span className="capitalize text-mist-300">{post.kind}</span>
       </nav>
 
-      <div className="panel hud overflow-hidden" style={{ ["--cut" as string]: "20px" }}>
+      <div className="panel overflow-hidden">
         <PrizeArt art={post.art} size="hero" />
       </div>
 

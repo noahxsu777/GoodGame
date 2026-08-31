@@ -43,7 +43,7 @@ export default async function LegalPage({ params }: { params: Promise<{ doc: str
       <div className="mt-10 space-y-8">
         {legal.sections.map((section) => (
           <section key={section.heading}>
-            <h2 className="font-display text-lg font-bold uppercase tracking-tight text-white">{section.heading}</h2>
+            <h2 className="font-display text-lg font-bold tracking-tight text-white">{section.heading}</h2>
             <div className="mt-3 space-y-3">
               {section.paragraphs.map((p, i) => (
                 <p key={i} className="text-sm leading-relaxed text-mist-400">

@@ -1,30 +1,22 @@
 import type { Metadata } from "next";
-import { Chakra_Petch, Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-/** Tipografía angular para titulares, legible para texto y mono para HUD. */
-const chakra = Chakra_Petch({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-chakra",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const jet = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-jet",
-  display: "swap",
-});
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { currentUser } from "@/lib/session";
+
+/** Geist: grotesca moderna, la misma familia para interfaz y titulares. */
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -47,7 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const user = await currentUser();
 
   return (
-    <html lang="es" className={`${chakra.variable} ${inter.variable} ${jet.variable}`}>
+    <html lang="es" className={`${geist.variable} ${geistMono.variable}`}>
       <body className="font-sans antialiased">
         <SiteHeader
           user={user ? { name: user.name, role: user.role } : null}

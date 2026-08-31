@@ -63,7 +63,7 @@ export default function HowItWorksPage() {
         {FLOW.map((step) => (
           <div key={step.n} className="panel p-6">
             <span className="text-sm font-black tracking-widest text-neon-400">{step.n}</span>
-            <h3 className="font-display mt-4 text-base font-bold uppercase tracking-tight text-white">{step.title}</h3>
+            <h3 className="font-display mt-4 text-base font-bold tracking-tight text-white">{step.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-mist-400">{step.body}</p>
           </div>
         ))}

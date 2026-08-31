@@ -1,39 +1,44 @@
 @import "tailwindcss";
 
 @theme {
-  /* Base: negro azulado profundo, como un estudio de esports apagado. */
-  --color-void: #05060b;
-  --color-ink-950: #07080f;
-  --color-ink-900: #0a0c15;
-  --color-ink-850: #0e111c;
-  --color-ink-800: #131725;
-  --color-ink-700: #1c2133;
-  --color-ink-600: #2a3145;
-  --color-ink-500: #3a4258;
+  /* Superficies por elevación, no por bordes duros. */
+  --color-void: #08090c;
+  --color-ink-950: #0b0d12;
+  --color-ink-900: #101219;
+  --color-ink-850: #141721;
+  --color-ink-800: #191d29;
+  --color-ink-700: #232838;
+  --color-ink-600: #2f3547;
+  --color-ink-500: #414962;
 
-  --color-mist-400: #858da8;
-  --color-mist-300: #a9b1c8;
-  --color-mist-200: #d5dae8;
+  --color-mist-400: #838b9e;
+  --color-mist-300: #a7aec0;
+  --color-mist-200: #dfe3ec;
 
-  /* Acentos de marca */
-  --color-neon-600: #6234ff;
-  --color-neon-500: #7c5cff;
-  --color-neon-400: #9d84ff;
-  --color-aqua-500: #16d5f0;
-  --color-aqua-400: #5ee7fb;
-  --color-lime-500: #b6f13a;
-  --color-lime-400: #ccf76d;
-  --color-flame-500: #ff4d2e;
-  --color-gold-500: #ffc247;
+  --color-neon-600: #5a49f0;
+  --color-neon-500: #6d5efc;
+  --color-neon-400: #9184ff;
+  --color-aqua-500: #22d3ee;
+  --color-aqua-400: #67e8f9;
+  --color-lime-500: #7bdc63;
+  --color-lime-400: #a3ea90;
+  --color-flame-500: #ff6b5b;
+  --color-gold-500: #f5c451;
 
-  --font-display: var(--font-chakra), "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-jet), ui-monospace, "SFMono-Regular", monospace;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --radius-lg: 1.125rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
 }
 
 :root {
   color-scheme: dark;
-  --cut: 16px;
+  --line: rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(255, 255, 255, 0.14);
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 * {
@@ -48,336 +53,235 @@ body {
   background-color: var(--color-void);
   color: var(--color-mist-200);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   min-height: 100dvh;
   overflow-x: hidden;
-}
-
-/* Grano fino sobre todo el lienzo: quita el aspecto de "plano digital". */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-body > * {
-  position: relative;
-  z-index: 1;
+  letter-spacing: -0.011em;
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--color-neon-500) 55%, transparent);
-  color: white;
+  background: color-mix(in oklab, var(--color-neon-500) 45%, transparent);
+  color: #fff;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-aqua-400);
+  outline: 2px solid var(--color-neon-400);
   outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* ------------------------------------------------------ titulares y texto */
 
 .font-display {
   font-family: var(--font-display);
+  letter-spacing: -0.025em;
 }
 
+/* Caja mixta y tracking cerrado: el registro de producto actual. */
 .headline {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 0.95;
-  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
 }
 
 .eyebrow {
-  font-family: var(--font-display);
+  font-size: 0.7rem;
   font-weight: 600;
-  font-size: 0.68rem;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: var(--color-mist-400);
 }
 
 .text-gradient {
-  background: linear-gradient(100deg, #fff 4%, var(--color-neon-400) 44%, var(--color-aqua-400) 88%);
+  background: linear-gradient(105deg, #fff 10%, var(--color-neon-400) 52%, var(--color-aqua-400) 95%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.text-glow {
-  text-shadow: 0 0 28px color-mix(in oklab, var(--color-neon-400) 60%, transparent);
-}
+/* --------------------------------------------------------------- paneles */
 
-/* ------------------------------------------- paneles con esquina cortada */
-
-/*
- * El corte diagonal es la firma visual del proyecto. Para que el borde de 1px
- * siga la diagonal se pintan dos capas: el elemento hace de borde y un
- * pseudoelemento un pixel por dentro hace de relleno. `isolation` + z-index
- * negativo dejan el contenido encima sin tocar los hijos.
- */
 .panel {
   position: relative;
-  isolation: isolate;
-  background: linear-gradient(160deg, var(--color-ink-600), var(--color-ink-700) 45%, var(--color-ink-800));
-  clip-path: polygon(
-    var(--cut) 0,
-    100% 0,
-    100% calc(100% - var(--cut)),
-    calc(100% - var(--cut)) 100%,
-    0 100%,
-    0 var(--cut)
-  );
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012));
+  background-color: var(--color-ink-900);
 }
 
-.panel::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  z-index: -1;
-  background: linear-gradient(165deg, #121623 0%, #0b0e17 60%, #090b12 100%);
-  clip-path: inherit;
-}
-
-.panel-flat::before {
+.panel-flat {
   background: var(--color-ink-900);
 }
 
 .panel-hover {
   transition:
-    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
-    filter 0.28s ease,
-    background 0.28s ease;
+    transform 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
 }
 
 .panel-hover:hover {
-  transform: translateY(-5px);
-  background: linear-gradient(160deg, var(--color-neon-500), var(--color-aqua-500) 70%, var(--color-neon-600));
-  filter: drop-shadow(0 18px 34px rgba(124, 92, 255, 0.28));
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+    0 24px 50px -30px rgba(0, 0, 0, 0.9);
 }
 
-.panel-accent {
-  background: linear-gradient(160deg, var(--color-neon-500), var(--color-aqua-500) 65%, var(--color-neon-600));
-}
-
-.panel-win {
-  background: linear-gradient(160deg, var(--color-lime-500), #4ade80 70%, var(--color-lime-500));
-}
-
-/* Corchete de HUD en la esquina recta: detalle de interfaz de juego. */
-.hud::after {
+/* Luz de acento que aparece al pasar el cursor por una tarjeta. */
+.panel-hover::after {
   content: "";
   position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 22px;
-  height: 22px;
-  z-index: 2;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(140deg, var(--color-neon-500), transparent 45%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
   pointer-events: none;
-  border-top: 2px solid color-mix(in oklab, var(--color-aqua-400) 70%, transparent);
-  border-right: 2px solid color-mix(in oklab, var(--color-aqua-400) 70%, transparent);
 }
 
-/* Barrido de brillo al pasar el cursor. */
-.sheen {
-  position: relative;
-  overflow: hidden;
-}
-
-.sheen::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -60%;
-  width: 45%;
-  z-index: 3;
-  pointer-events: none;
-  transform: skewX(-18deg);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
-  transition: left 0.55s ease;
-}
-
-.sheen:hover::after,
-.group:hover .sheen::after {
-  left: 120%;
+.panel-hover:hover::after {
+  opacity: 0.55;
 }
 
 /* ---------------------------------------------------------------- botones */
 
 .btn {
-  --cut: 10px;
-  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  font-weight: 550;
+  letter-spacing: -0.012em;
+  white-space: nowrap;
   transition:
-    transform 0.2s ease,
-    filter 0.2s ease,
-    background 0.2s ease;
-  clip-path: polygon(
-    var(--cut) 0,
-    100% 0,
-    100% calc(100% - var(--cut)),
-    calc(100% - var(--cut)) 100%,
-    0 100%,
-    0 var(--cut)
-  );
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    transform 0.15s var(--ease);
 }
 
 .btn:active {
-  transform: translateY(1px);
+  transform: scale(0.985);
 }
 
 .btn-primary {
-  background: linear-gradient(100deg, var(--color-neon-500), var(--color-aqua-500));
-  color: var(--color-void);
-  filter: drop-shadow(0 10px 26px rgba(98, 52, 255, 0.4));
+  background: linear-gradient(180deg, var(--color-neon-500), var(--color-neon-600));
+  color: #fff;
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.2) inset,
+    0 10px 30px -12px rgba(109, 94, 252, 0.75);
 }
 
 .btn-primary:hover {
-  filter: drop-shadow(0 14px 32px rgba(22, 213, 240, 0.5)) brightness(1.08);
-}
-
-.btn-lime {
-  background: linear-gradient(100deg, var(--color-lime-500), #6ee7a8);
-  color: var(--color-void);
-  filter: drop-shadow(0 10px 26px rgba(182, 241, 58, 0.3));
+  background: linear-gradient(180deg, #7d70ff, #6152f5);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.24) inset,
+    0 14px 36px -12px rgba(109, 94, 252, 0.9);
 }
 
 .btn-ghost {
-  background: var(--color-ink-700);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
   color: var(--color-mist-200);
-  isolation: isolate;
-}
-
-.btn-ghost::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  z-index: -1;
-  background: var(--color-ink-900);
-  clip-path: inherit;
-  transition: background 0.2s ease;
 }
 
 .btn-ghost:hover {
-  background: linear-gradient(100deg, var(--color-neon-500), var(--color-aqua-500));
-  color: #fff;
-}
-
-.btn-ghost:hover::before {
-  background: var(--color-ink-850);
+  background: rgba(255, 255, 255, 0.075);
+  border-color: var(--line-strong);
 }
 
 .btn-light {
   background: #fff;
-  color: var(--color-void);
+  color: #0b0d12;
+  box-shadow: 0 10px 30px -14px rgba(255, 255, 255, 0.5);
 }
 
 .btn-light:hover {
-  filter: drop-shadow(0 12px 28px rgba(255, 255, 255, 0.22));
+  background: #eef1f7;
 }
 
-/* ------------------------------------------------------- pestañas y filtros */
+/* ------------------------------------------------------- pestañas y chips */
 
 .chip {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border: 1px solid var(--color-ink-700);
-  border-left-width: 2px;
-  background: var(--color-ink-900);
-  color: var(--color-mist-400);
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-mist-300);
+  font-size: 0.8125rem;
+  font-weight: 500;
   transition:
-    color 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease;
+    color 0.2s var(--ease),
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease);
 }
 
 .chip:hover {
   color: #fff;
-  border-color: color-mix(in oklab, var(--color-neon-500) 55%, transparent);
+  border-color: var(--line-strong);
 }
 
 .chip-active {
   color: #fff;
-  background: color-mix(in oklab, var(--color-neon-500) 16%, var(--color-ink-900));
-  border-color: var(--color-ink-700);
-  border-left-color: var(--color-neon-500);
-  box-shadow: inset 3px 0 12px -6px var(--color-neon-500);
+  background: color-mix(in oklab, var(--color-neon-500) 22%, transparent);
+  border-color: color-mix(in oklab, var(--color-neon-400) 45%, transparent);
 }
 
-/* ------------------------------------------------- paquetes de boletos */
+/* ------------------------------------------------ paquetes de boletos */
 
 .pack {
-  --cut: 10px;
-  position: relative;
-  isolation: isolate;
-  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.025);
+  padding: 0.95rem 1rem;
   text-align: left;
-  background: var(--color-ink-700);
-  transition: background 0.2s ease, transform 0.2s ease;
-  clip-path: polygon(
-    var(--cut) 0,
-    100% 0,
-    100% calc(100% - var(--cut)),
-    calc(100% - var(--cut)) 100%,
-    0 100%,
-    0 var(--cut)
-  );
-}
-
-.pack::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  z-index: -1;
-  background: var(--color-ink-900);
-  clip-path: inherit;
-  transition: background 0.2s ease;
+  transition:
+    border-color 0.2s var(--ease),
+    background 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
 }
 
 .pack:hover {
-  background: color-mix(in oklab, var(--color-neon-500) 60%, var(--color-ink-700));
+  border-color: var(--line-strong);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .pack-active {
-  background: linear-gradient(140deg, var(--color-neon-500), var(--color-aqua-500));
-  transform: translateY(-2px);
-}
-
-.pack-active::before {
-  background: color-mix(in oklab, var(--color-neon-500) 16%, var(--color-ink-900));
+  border-color: color-mix(in oklab, var(--color-neon-400) 65%, transparent);
+  background: color-mix(in oklab, var(--color-neon-500) 14%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-neon-500) 35%, transparent);
 }
 
 /* ------------------------------------------------------------ formularios */
 
 .field {
-  --cut: 8px;
   width: 100%;
-  background: var(--color-ink-900);
-  border: 1px solid var(--color-ink-700);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
   color: #fff;
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    background 0.2s var(--ease);
 }
 
 .field:focus {
   outline: none;
-  border-color: var(--color-neon-500);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-neon-500) 22%, transparent);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: color-mix(in oklab, var(--color-neon-400) 60%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-neon-500) 16%, transparent);
 }
 
 .field::placeholder {
@@ -387,58 +291,29 @@ body > * {
 /* --------------------------------------------------------- arte de premio */
 
 /*
- * El premio es lo que más pesa visualmente, así que en vez de un degradado
- * plano se monta una escena por capas: base oscura, foco de color detrás del
- * objeto, rejilla en fuga, línea de horizonte encendida, reflejo y viñeta.
+ * Fondo limpio de estudio: dos lavados de color muy suaves y una sombra de
+ * contacto. Sin rejillas ni líneas de barrido, que son lenguaje retro.
  */
 .prize-art {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(
-    168deg,
-    color-mix(in oklab, var(--art-from) 42%, #05060b) 0%,
-    #06070d 55%,
-    color-mix(in oklab, var(--art-to) 18%, #05060b) 100%
-  );
+  background:
+    radial-gradient(58% 46% at 50% 4%, color-mix(in oklab, var(--art-from) 20%, transparent), transparent 76%),
+    radial-gradient(46% 40% at 84% 96%, color-mix(in oklab, var(--art-to) 16%, transparent), transparent 78%),
+    linear-gradient(180deg, #171a24 0%, #10131b 100%);
 }
 
-/* Foco cenital + resplandor de suelo. */
 .prize-glow {
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(38% 40% at 50% 44%, color-mix(in oklab, var(--art-to) 95%, transparent), transparent 72%),
-    radial-gradient(95% 45% at 50% 104%, color-mix(in oklab, var(--art-from) 88%, transparent), transparent 76%);
-  filter: saturate(1.25);
-}
-
-/* Rejilla en fuga hacia el horizonte. */
-.prize-art::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.22) 1px, transparent 1px);
-  background-size: 30px 30px;
-  mask-image: linear-gradient(to top, #000 2%, transparent 62%);
-  opacity: 0.35;
-}
-
-/* Línea de horizonte + barrido + viñeta. */
-.prize-art::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      transparent calc(72% - 1px),
-      color-mix(in oklab, var(--art-to) 80%, white 25%) 72%,
-      transparent calc(72% + 1px)
-    ),
-    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.26) 0 2px, transparent 2px 4px),
-    radial-gradient(115% 95% at 50% 45%, transparent 38%, rgba(0, 0, 0, 0.72) 100%);
+  left: 50%;
+  bottom: 8%;
+  width: 62%;
+  height: 26%;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--art-to) 42%, transparent), transparent);
+  filter: blur(20px);
+  opacity: 0.6;
 }
 
 .prize-stage {
@@ -451,20 +326,21 @@ body > * {
   height: 100%;
 }
 
-/* Ilustración vectorial del hardware, sobre el escenario. */
 .prize-object {
   position: relative;
   z-index: 2;
   display: block;
-  /* Alto y ancho explícitos: el SVG se encaja dentro con preserveAspectRatio
-     y así nunca desborda el marco recortado de la tarjeta. */
-  width: 88%;
-  height: 72%;
+  width: 82%;
+  height: 74%;
   max-width: 24rem;
-  transform: translateY(-6%);
-  filter: drop-shadow(0 22px 26px rgba(0, 0, 0, 0.6))
-    drop-shadow(0 0 34px color-mix(in oklab, var(--art-to) 55%, transparent));
-  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: drop-shadow(0 26px 30px rgba(0, 0, 0, 0.55));
+  transition: transform 0.45s var(--ease);
+}
+
+.prize-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .prize-photo {
@@ -474,125 +350,54 @@ body > * {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* La foto se funde con el escenario en vez de quedar pegada como un recorte. */
-  mask-image: radial-gradient(120% 108% at 50% 44%, #000 62%, transparent 100%);
-}
-
-.prize-svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-/* Reflejo del objeto en el suelo del escenario. */
-.prize-mirror {
-  position: absolute;
-  left: 50%;
-  top: 56%;
-  z-index: 1;
-  transform: translateX(-50%) scaleY(-1);
-  opacity: 0.2;
-  filter: blur(1.5px);
-  mask-image: linear-gradient(to top, transparent 22%, #000 88%);
-  pointer-events: none;
-}
-
-.group:hover .prize-object:not(.prize-mirror) {
-  transform: translateY(-15%) scale(1.05);
-}
-
-/* En la miniatura no cabe tanto detalle: la ilustración ocupa casi todo. */
-.prize-art.h-16 .prize-object {
-  width: 94%;
-  height: 88%;
-  transform: none;
 }
 
 .prize-emoji {
   position: relative;
   z-index: 2;
   line-height: 1;
-  transform: translateY(-6%);
-  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.65))
-    drop-shadow(0 0 30px color-mix(in oklab, var(--art-to) 70%, transparent));
-  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.55));
 }
 
-/* Reflejo en el "suelo" del escenario. */
-.prize-reflection {
-  position: absolute;
-  top: 62%;
-  left: 50%;
-  z-index: 1;
-  line-height: 1;
-  transform: translateX(-50%) scaleY(-1);
-  opacity: 0.22;
-  filter: blur(2px);
-  mask-image: linear-gradient(to top, transparent 18%, #000 92%);
-  pointer-events: none;
+.group:hover .prize-object {
+  transform: translateY(-6px) scale(1.035);
 }
 
-.group:hover .prize-emoji {
-  transform: translateY(-13%) scale(1.08) rotate(-3deg);
+.prize-art.h-16 .prize-object {
+  width: 88%;
+  height: 88%;
 }
 
 /* --------------------------------------------------------- barra de progreso */
 
 .bar {
-  position: relative;
-  height: 0.6rem;
-  background: var(--color-ink-800);
-  border: 1px solid var(--color-ink-700);
+  height: 0.375rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
-  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
 }
 
 .bar-fill {
-  position: relative;
   height: 100%;
-  background: linear-gradient(90deg, var(--color-neon-500), var(--color-aqua-400));
-  box-shadow: 0 0 16px color-mix(in oklab, var(--color-aqua-500) 65%, transparent);
-}
-
-/* Muescas: la barra se lee como energía de videojuego, no como una web. */
-.bar-fill::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0 9px,
-    rgba(5, 6, 11, 0.55) 9px 11px
-  );
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-neon-500), var(--color-aqua-500));
 }
 
 /* ------------------------------------------------------------- decoración */
 
 .aurora {
   background-image:
-    radial-gradient(58rem 30rem at 8% -12%, rgba(98, 52, 255, 0.36), transparent 60%),
-    radial-gradient(45rem 26rem at 92% -6%, rgba(22, 213, 240, 0.22), transparent 62%),
-    radial-gradient(38rem 24rem at 50% 108%, rgba(182, 241, 58, 0.09), transparent 65%);
+    radial-gradient(52rem 26rem at 12% -14%, rgba(109, 94, 252, 0.22), transparent 62%),
+    radial-gradient(40rem 22rem at 88% -8%, rgba(34, 211, 238, 0.12), transparent 66%);
 }
 
-.grid-lines {
-  background-image:
-    linear-gradient(rgba(133, 141, 168, 0.075) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(133, 141, 168, 0.075) 1px, transparent 1px);
-  background-size: 62px 62px;
-  mask-image: linear-gradient(to bottom, #000, transparent 80%);
-}
-
-.rule-glow {
+.hairline {
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-neon-500), var(--color-aqua-500), transparent);
-  opacity: 0.55;
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
 }
-
-/* ------------------------------------------------------------- animación */
 
 .ticker-track {
-  animation: ticker 42s linear infinite;
+  animation: ticker 55s linear infinite;
 }
 
 @keyframes ticker {
@@ -608,44 +413,26 @@ body > * {
   0%,
   100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-lime-500) 60%, transparent);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-lime-500) 55%, transparent);
   }
   70% {
-    opacity: 0.55;
-    box-shadow: 0 0 0 7px transparent;
+    opacity: 0.6;
+    box-shadow: 0 0 0 6px transparent;
   }
 }
 
 .live-dot {
-  animation: pulse-dot 1.6s ease-out infinite;
-}
-
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.float-slow {
-  animation: float-slow 7s ease-in-out infinite;
+  animation: pulse-dot 2s ease-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ticker-track,
-  .live-dot,
-  .float-slow {
+  .live-dot {
     animation: none;
   }
   .panel-hover:hover,
-  .group:hover .prize-emoji {
+  .group:hover .prize-object {
     transform: none;
-  }
-  .sheen::after {
-    display: none;
   }
   html {
     scroll-behavior: auto;

@@ -53,7 +53,7 @@ export default async function AdminPage() {
                       {g.status === "drawn" && <Badge tone="done">Sorteado</Badge>}
                       <span className="text-xs text-mist-400">{longDate(g.drawAt)}</span>
                     </div>
-                    <h3 className="font-display mt-2 text-lg font-bold uppercase tracking-tight text-white">
+                    <h3 className="font-display mt-2 text-lg font-bold tracking-tight text-white">
                       {g.art.emoji} {g.title}
                     </h3>
                     <p className="mt-1 text-sm text-mist-400">

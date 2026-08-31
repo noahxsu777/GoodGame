@@ -62,16 +62,15 @@ export default async function HomePage() {
     <>
       {/* ---------------------------------------------------------------- hero */}
       <section className="aurora relative overflow-hidden border-b border-ink-800">
-        <div className="grid-lines absolute inset-0" aria-hidden />
         <div className="relative mx-auto grid max-w-6xl gap-14 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
-            <span className="font-display inline-flex items-center gap-2 border border-lime-500/45 bg-lime-500/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-lime-400">
+            <span className="font-display inline-flex items-center gap-2 border border-lime-500/45 bg-lime-500/10 px-3 py-1.5 text-[11px] font-semibold tracking-[0.16em] text-lime-400">
               <LiveDot />
               {stats.openGiveaways} sorteos abiertos ahora
             </span>
 
             <h1 className="headline mt-7 text-[3.25rem] leading-[0.92] text-white sm:text-7xl">
-              <span className="text-glow">Juega bien.</span>
+              <span>Juega bien.</span>
               <br />
               <span className="text-gradient">Gana en serio.</span>
             </h1>
@@ -98,7 +97,7 @@ export default async function HomePage() {
                 ["En premios", money(stats.prizeValueCents)],
               ].map(([label, value]) => (
                 <div key={label}>
-                  <dt className="text-[10px] font-semibold uppercase tracking-[0.16em] text-mist-400">
+                  <dt className="text-[13px] text-mist-400">
                     {label}
                   </dt>
                   <dd className="font-display mt-1.5 text-2xl font-bold tabular-nums text-white">{value}</dd>
@@ -108,8 +107,8 @@ export default async function HomePage() {
           </div>
 
           {hero && (
-            <div className="panel hud float-slow overflow-hidden" style={{ ["--cut" as string]: "22px" }}>
-              <div className="sheen group relative">
+            <div className="panel overflow-hidden">
+              <div className="group relative">
                 <PrizeArt art={hero.art} size="hero" />
                 <span className="absolute left-4 top-4 z-[2]">
                   <Badge tone="live">
@@ -118,7 +117,7 @@ export default async function HomePage() {
                 </span>
               </div>
               <div className="p-6 sm:p-7">
-                <h2 className="font-display text-xl font-bold uppercase leading-tight tracking-tight text-white">
+                <h2 className="font-display text-xl font-bold leading-tight tracking-tight text-white">
                   {hero.title}
                 </h2>
                 <p className="mt-2 text-sm text-mist-400">{hero.tagline}</p>
@@ -152,7 +151,7 @@ export default async function HomePage() {
 
       {/* -------------------------------------------------------------- ticker */}
       <div className="overflow-hidden border-b border-ink-800 bg-ink-950 py-3.5">
-        <div className="ticker-track flex w-max gap-8 whitespace-nowrap font-display text-[13px] font-semibold uppercase tracking-wide text-mist-400">
+        <div className="ticker-track flex w-max gap-8 whitespace-nowrap font-display text-[13px] font-semibold tracking-wide text-mist-400">
           {[...ticker, ...ticker].map((item, i) => (
             <span key={i} className="flex items-center gap-8">
               {item}
@@ -179,7 +178,6 @@ export default async function HomePage() {
 
       {/* -------------------------------------------------------- cómo funciona */}
       <section className="relative border-y border-ink-800 bg-ink-950">
-        <div className="grid-lines absolute inset-0 opacity-60" aria-hidden />
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
           <SectionHeading
             eyebrow="Tres pasos"
@@ -188,9 +186,9 @@ export default async function HomePage() {
           />
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {STEPS.map((step) => (
-              <div key={step.n} className="panel hud p-7">
+              <div key={step.n} className="panel p-7">
                 <span className="font-display text-3xl font-bold text-neon-500/70">{step.n}</span>
-                <h3 className="font-display mt-4 text-lg font-bold uppercase tracking-tight text-white">
+                <h3 className="font-display mt-4 text-lg font-bold tracking-tight text-white">
                   {step.title}
                 </h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-mist-400">{step.body}</p>
@@ -202,7 +200,7 @@ export default async function HomePage() {
 
       {/* --------------------------------------------------------- verificable */}
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
-        <div className="panel hud grid gap-10 p-8 sm:p-12 lg:grid-cols-2 lg:items-center" style={{ ["--cut" as string]: "24px" }}>
+        <div className="panel grid gap-10 p-8 sm:p-12 lg:grid-cols-2 lg:items-center">
           <div>
             <p className="eyebrow flex items-center gap-2 text-aqua-400">
               <span aria-hidden className="inline-block h-3 w-[3px] bg-aqua-500" />
@@ -257,11 +255,10 @@ export default async function HomePage() {
                 key={g.id}
                 href={`/sorteos/${g.slug}`}
                 className="panel panel-hover group flex min-w-0 items-center gap-5 p-5"
-                style={{ ["--cut" as string]: "12px" }}
               >
                 <PrizeArt art={g.art} size="tile" />
                 <div className="min-w-0 flex-1">
-                  <p className="font-display truncate text-sm font-bold uppercase tracking-tight text-white">
+                  <p className="font-display truncate text-sm font-bold tracking-tight text-white">
                     {g.title}
                   </p>
                   <p className="mt-1.5 truncate text-sm text-mist-400">
@@ -292,15 +289,15 @@ export default async function HomePage() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.slice(0, 3).map((post) => (
             <Link key={post.id} href={`/comunidad/${post.slug}`} className="panel panel-hover group overflow-hidden">
-              <div className="sheen">
+              <div>
                 <PrizeArt art={post.art} size="card" />
               </div>
               <div className="p-5">
-                <span className="font-display text-[10px] font-semibold uppercase tracking-[0.18em] text-neon-400">
+                <span className="font-display text-[10px] font-semibold tracking-[0.18em] text-neon-400">
                   {post.kind}
                   {post.duration ? ` · ${post.duration}` : ""}
                 </span>
-                <h3 className="font-display mt-2.5 text-base font-bold uppercase leading-tight tracking-tight text-white">
+                <h3 className="font-display mt-2.5 text-base font-bold leading-tight tracking-tight text-white">
                   {post.title}
                 </h3>
                 <p className="mt-2 line-clamp-2 text-sm text-mist-400">{post.excerpt}</p>
@@ -317,7 +314,7 @@ export default async function HomePage() {
           <div className="mt-10 divide-y divide-ink-800 border-y border-ink-800">
             {FAQ.map((item) => (
               <details key={item.q} className="group py-5">
-                <summary className="font-display flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold uppercase tracking-wide text-white">
+                <summary className="font-display flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold tracking-wide text-white">
                   {item.q}
                   <span className="text-neon-400 transition-transform group-open:rotate-45">+</span>
                 </summary>
@@ -330,8 +327,7 @@ export default async function HomePage() {
 
       {/* ----------------------------------------------------------------- cta */}
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
-        <div className="aurora panel hud relative overflow-hidden p-10 text-center sm:p-16" style={{ ["--cut" as string]: "26px" }}>
-          <div className="grid-lines absolute inset-0" aria-hidden />
+        <div className="aurora panel relative overflow-hidden p-10 text-center sm:p-16">
           <div className="relative">
             <h2 className="headline text-[2rem] text-white sm:text-5xl">Tu primer boleto es gratis</h2>
             <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-mist-300">

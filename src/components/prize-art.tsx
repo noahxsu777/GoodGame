@@ -12,10 +12,10 @@ export type Art = {
 };
 
 /**
- * Marco del premio: una escena por capas (foco, rejilla en fuga, horizonte,
- * reflejo y viñeta) alrededor de la foto o la ilustración del hardware. Es lo
- * que más peso visual tiene en la app, así que vive aquí para que tarjetas,
- * ficha y ganadores usen exactamente el mismo tratamiento.
+ * Marco del premio: fondo de estudio con dos lavados de color y una sombra de
+ * contacto, con la foto o la ilustración del hardware encima. Es lo que más
+ * peso visual tiene en la app, así que vive aquí para que tarjetas, ficha y
+ * ganadores usen exactamente el mismo tratamiento.
  */
 export function PrizeArt({
   art,
@@ -45,27 +45,13 @@ export function PrizeArt({
       <span aria-hidden className="prize-glow" />
       <span className="prize-stage">
         {Shape ? (
-          <>
-            <span className="prize-object">
-              <Shape />
-            </span>
-            {size !== "tile" && (
-              <span aria-hidden className="prize-object prize-mirror">
-                <Shape />
-              </span>
-            )}
-          </>
+          <span className="prize-object">
+            <Shape />
+          </span>
         ) : (
-          <>
-            <span aria-hidden className="prize-emoji">
-              {art.emoji}
-            </span>
-            {size !== "tile" && (
-              <span aria-hidden className="prize-reflection">
-                {art.emoji}
-              </span>
-            )}
-          </>
+          <span aria-hidden className="prize-emoji">
+            {art.emoji}
+          </span>
         )}
         {/* La foto se pinta encima; si falla, queda la ilustración. */}
         {art.image && <PrizePhoto src={art.image} alt={alt} />}

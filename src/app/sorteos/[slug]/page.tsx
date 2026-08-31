@@ -61,7 +61,7 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
 
       <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:items-start">
         <div>
-          <div className="panel hud overflow-hidden" style={{ ["--cut" as string]: "22px" }}>
+          <div className="panel overflow-hidden">
             <PrizeArt art={giveaway.art} size="wide" />
           </div>
 
@@ -84,15 +84,15 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             <div className="panel p-5">
-              <p className="text-xs uppercase tracking-wide text-mist-400">Valor del premio</p>
+              <p className="text-[13px] text-mist-400">Valor del premio</p>
               <p className="mt-1 text-xl font-extrabold text-white">{money(giveaway.retailCents)}</p>
             </div>
             <div className="panel p-5">
-              <p className="text-xs uppercase tracking-wide text-mist-400">Participantes</p>
+              <p className="text-[13px] text-mist-400">Participantes</p>
               <p className="mt-1 text-xl font-extrabold text-white">{number(giveaway.participants)}</p>
             </div>
             <div className="panel p-5">
-              <p className="text-xs uppercase tracking-wide text-mist-400">Boletos vendidos</p>
+              <p className="text-[13px] text-mist-400">Boletos vendidos</p>
               <p className="mt-1 text-xl font-extrabold text-white">
                 {number(giveaway.ticketsSold)}
                 <span className="text-sm font-medium text-mist-400"> / {number(giveaway.totalTickets)}</span>
@@ -114,7 +114,7 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
           </div>
 
           <section className="mt-10">
-            <h2 className="font-display text-lg font-bold uppercase tracking-tight text-white">Qué incluye el premio</h2>
+            <h2 className="font-display text-lg font-bold tracking-tight text-white">Qué incluye el premio</h2>
             <ul className="mt-4 space-y-2.5">
               {giveaway.prize.map((item) => (
                 <li key={item} className="flex gap-3 text-sm text-mist-300">
@@ -131,7 +131,7 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
           {/* -------------------------------------------------- verificabilidad */}
           <section className="panel mt-10 p-6">
             <div className="flex items-center justify-between gap-4">
-              <h2 className="font-display text-lg font-bold uppercase tracking-tight text-white">Sorteo verificable</h2>
+              <h2 className="font-display text-lg font-bold tracking-tight text-white">Sorteo verificable</h2>
               <Link href="/verificar" className="text-sm font-semibold text-aqua-400 hover:underline">
                 Comprobar
               </Link>
@@ -139,7 +139,7 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
 
             <dl className="mt-4 space-y-3 text-sm">
               <div>
-                <dt className="text-xs uppercase tracking-wide text-mist-400">
+                <dt className="text-[13px] text-mist-400">
                   Compromiso publicado el {longDate(giveaway.createdAt)}
                 </dt>
                 <dd className="mt-1 break-all font-mono text-xs text-aqua-400">{giveaway.seedHash}</dd>
@@ -148,15 +148,15 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
               {giveaway.result ? (
                 <>
                   <div>
-                    <dt className="text-xs uppercase tracking-wide text-mist-400">Semilla pública (del directo)</dt>
+                    <dt className="text-[13px] text-mist-400">Semilla pública (del directo)</dt>
                     <dd className="mt-1 font-mono text-xs text-neon-400">{giveaway.result.publicSeed}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs uppercase tracking-wide text-mist-400">Semilla secreta revelada</dt>
+                    <dt className="text-[13px] text-mist-400">Semilla secreta revelada</dt>
                     <dd className="mt-1 break-all font-mono text-xs text-mist-300">{giveaway.result.serverSeed}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs uppercase tracking-wide text-mist-400">Boletos en el bombo</dt>
+                    <dt className="text-[13px] text-mist-400">Boletos en el bombo</dt>
                     <dd className="mt-1 font-mono text-xs text-mist-300">{number(giveaway.result.ticketsSold)}</dd>
                   </div>
                 </>
@@ -171,23 +171,23 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
 
           {giveaway.result && (
             <section className="panel mt-6 border-aqua-500/40 p-6">
-              <h2 className="font-display text-lg font-bold uppercase tracking-tight text-white">Resultado</h2>
+              <h2 className="font-display text-lg font-bold tracking-tight text-white">Resultado</h2>
               <div className="mt-4 flex flex-wrap items-center gap-6">
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-mist-400">Boleto ganador</p>
+                  <p className="text-[13px] text-mist-400">Boleto ganador</p>
                   <p className="mt-1 text-3xl font-black text-aqua-400">
                     {ticketCode(giveaway.result.winningTicket)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-mist-400">Ganador</p>
+                  <p className="text-[13px] text-mist-400">Ganador</p>
                   <p className="mt-1 text-lg font-bold text-white">
                     {countryFlag(giveaway.result.winnerCountry)} {giveaway.result.winnerName}
                   </p>
                   <p className="text-sm text-mist-400">{countryName(giveaway.result.winnerCountry)}</p>
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-mist-400">Fecha</p>
+                  <p className="text-[13px] text-mist-400">Fecha</p>
                   <p className="mt-1 text-sm text-mist-300">{longDate(giveaway.result.drawnAt)}</p>
                 </div>
               </div>
@@ -198,7 +198,7 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
         {/* --------------------------------------------------------- barra lateral */}
         <aside className="space-y-6 lg:sticky lg:top-24">
           <div className="panel p-6">
-            <p className="text-xs uppercase tracking-wide text-mist-400">
+            <p className="text-[13px] text-mist-400">
               {giveaway.status === "drawn" ? "Sorteado el" : "Sorteo en vivo"}
             </p>
             <p className="mt-1 text-sm font-semibold text-white">{longDate(giveaway.drawAt)}</p>
@@ -219,18 +219,14 @@ export default async function GiveawayPage({ params }: { params: Promise<{ slug:
 
           {myTickets.length > 0 && (
             <div className="panel p-6">
-              <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
+              <p className="font-display text-sm font-bold tracking-wide text-white">
                 Tus boletos ({myTickets.length})
               </p>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {myTickets.slice(0, 30).map((t) => (
                   <span
                     key={t}
-                    className={`rounded-lg border px-2 py-1 font-mono text-xs ${
-                      giveaway.result?.winningTicket === t
-                        ? "border-lime-500 bg-lime-500/15 text-lime-500"
-                        : "border-ink-700 bg-ink-900 text-mist-300"
-                    }`}
+                    className={`rounded-lg border px-2 py-1 font-mono text-xs ${ giveaway.result?.winningTicket === t ? "border-lime-500 bg-lime-500/15 text-lime-500" : "border-ink-700 bg-ink-900 text-mist-300" }`}
                   >
                     {ticketCode(t)}
                   </span>

@@ -32,7 +32,7 @@ export function Countdown({ to, compact = false }: { to: string; compact?: boole
   }
 
   if (left <= 0) {
-    return <span className="font-display font-bold uppercase text-flame-500">Sorteo en curso</span>;
+    return <span className="font-display font-bold text-flame-500">Sorteo en curso</span>;
   }
 
   const { d, h, m, s } = parts(left);
@@ -57,17 +57,14 @@ export function Countdown({ to, compact = false }: { to: string; compact?: boole
       {cells.map(([value, label], i) => (
         <div
           key={label}
-          className="relative border border-ink-700 bg-ink-950/90 px-1 py-3 text-center"
-          style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+          className="rounded-xl border border-white/10 bg-white/[0.03] px-1 py-3 text-center"
         >
           <p
-            className={`font-display text-2xl font-bold tabular-nums ${
-              i === 3 ? "text-aqua-400" : "text-white"
-            }`}
+            className={`font-display text-2xl font-semibold tabular-nums ${i === 3 ? "text-aqua-400" : "text-white"}`}
           >
             {String(value).padStart(2, "0")}
           </p>
-          <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-mist-400">{label}</p>
+          <p className="mt-1 text-[11px] text-mist-400">{label}</p>
         </div>
       ))}
     </div>

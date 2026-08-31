@@ -14,7 +14,7 @@ export function GiveawayCard({ giveaway }: { giveaway: GiveawayView }) {
       href={`/sorteos/${giveaway.slug}`}
       className="panel panel-hover group flex flex-col overflow-hidden"
     >
-      <div className="sheen relative">
+      <div className="relative">
         <PrizeArt art={giveaway.art} size="card" />
         <div className="absolute left-3 top-3 z-[2] flex gap-2">
           {giveaway.status === "live" && (
@@ -25,16 +25,16 @@ export function GiveawayCard({ giveaway }: { giveaway: GiveawayView }) {
           {giveaway.status === "closed" && <Badge tone="warn">Venta cerrada</Badge>}
           {giveaway.status === "drawn" && <Badge tone="done">Sorteado</Badge>}
         </div>
-        <span className="font-display absolute right-3 top-3 z-[2] bg-void/75 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-mist-200 backdrop-blur">
+        <span className="absolute right-3 top-3 z-[2] rounded-full border border-white/10 bg-void/70 px-2.5 py-1 text-[11px] font-medium text-mist-200 backdrop-blur">
           {CATEGORY_LABEL[giveaway.category]}
         </span>
-        <span className="font-display absolute bottom-3 left-3 z-[2] text-[11px] font-semibold uppercase tracking-[0.14em] text-white/85">
+        <span className="absolute bottom-3 left-3 z-[2] text-[12px] font-medium text-white/85">
           Valor {money(giveaway.retailCents)}
         </span>
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-[17px] font-bold uppercase leading-tight tracking-tight text-white">
+        <h3 className="font-display text-[17px] font-bold leading-tight tracking-tight text-white">
           {giveaway.title}
         </h3>
         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-mist-400">{giveaway.tagline}</p>
@@ -57,7 +57,7 @@ export function GiveawayCard({ giveaway }: { giveaway: GiveawayView }) {
         <div className="mt-auto flex items-center justify-between gap-3 border-t border-ink-800 pt-4">
           {giveaway.status === "drawn" ? (
             <>
-              <span className="text-xs uppercase tracking-wide text-mist-400">Ganó</span>
+              <span className="text-[13px] text-mist-400">Ganó</span>
               <span className="truncate font-display text-sm font-semibold text-lime-400">
                 {giveaway.result?.winnerName}
               </span>
@@ -65,9 +65,7 @@ export function GiveawayCard({ giveaway }: { giveaway: GiveawayView }) {
           ) : (
             <>
               <span
-                className={`text-[10px] font-semibold uppercase tracking-[0.16em] ${
-                  closingSoon ? "text-flame-500" : "text-mist-400"
-                }`}
+                className={`text-[10px] font-semibold uppercase tracking-[0.16em] ${ closingSoon ? "text-flame-500" : "text-mist-400" }`}
               >
                 {closingSoon ? "Cierra pronto" : "Sortea en"}
               </span>
@@ -77,7 +75,7 @@ export function GiveawayCard({ giveaway }: { giveaway: GiveawayView }) {
         </div>
 
         {giveaway.status === "live" && (
-          <p className="font-display mt-4 flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-mist-300">
+          <p className="mt-4 flex items-center justify-between text-[13px] font-medium text-mist-300">
             <span>Desde {money(giveaway.ticketPriceCents)}</span>
             <span className="text-aqua-400 transition-transform group-hover:translate-x-1">Participar →</span>
           </p>

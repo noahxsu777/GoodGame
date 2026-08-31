@@ -34,9 +34,7 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
               <Link
                 key={item.href}
                 href={item.href}
-                className={`font-display relative px-3.5 py-2 text-[13px] font-semibold uppercase tracking-wide transition-colors ${
-                  active ? "text-white" : "text-mist-400 hover:text-white"
-                }`}
+                className={`font-display relative px-3.5 py-2 text-[13px] font-semibold tracking-wide transition-colors ${ active ? "text-white" : "text-mist-400 hover:text-white" }`}
               >
                 {item.label}
                 {active && (
@@ -60,14 +58,14 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
               )}
               <Link
                 href="/cuenta"
-                className="font-display px-3 py-2 text-[13px] font-semibold uppercase tracking-wide text-mist-200 hover:text-white"
+                className="font-display px-3 py-2 text-[13px] font-semibold tracking-wide text-mist-200 hover:text-white"
               >
                 {user.name.split(" ")[0]}
               </Link>
               <form action={logoutAction}>
                 <button
                   type="submit"
-                  className="font-display px-3 py-2 text-[13px] font-semibold uppercase tracking-wide text-mist-400 transition-colors hover:text-white"
+                  className="font-display px-3 py-2 text-[13px] font-semibold tracking-wide text-mist-400 transition-colors hover:text-white"
                 >
                   Salir
                 </button>
@@ -77,7 +75,7 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
             <>
               <Link
                 href="/entrar"
-                className="font-display px-3 py-2 text-[13px] font-semibold uppercase tracking-wide text-mist-300 hover:text-white"
+                className="font-display px-3 py-2 text-[13px] font-semibold tracking-wide text-mist-300 hover:text-white"
               >
                 Entrar
               </Link>
@@ -109,7 +107,7 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
               <Link
                 key={item.href}
                 href={item.href}
-                className="font-display border-l-2 border-transparent px-3 py-2.5 text-sm font-semibold uppercase tracking-wide text-mist-200 hover:border-neon-500 hover:bg-ink-900"
+                className="font-display border-l-2 border-transparent px-3 py-2.5 text-sm font-semibold tracking-wide text-mist-200 hover:border-neon-500 hover:bg-ink-900"
               >
                 {item.label}
               </Link>
@@ -135,7 +133,7 @@ export function SiteHeader({ user }: { user: { name: string; role: string } | nu
                 <form action={logoutAction}>
                   <button
                     type="submit"
-                    className="font-display w-full px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-mist-400"
+                    className="font-display w-full px-3 py-2.5 text-xs font-semibold tracking-wide text-mist-400"
                   >
                     Cerrar sesión
                   </button>
