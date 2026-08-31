@@ -55,7 +55,10 @@ function makeUser(index: number, name: string): User {
     id: `usr_seed${String(index).padStart(4, "0")}`,
     name,
     email: `${slug}@ejemplo.gg`,
-    passwordHash: hashPassword("ggplay-demo"),
+    // Estos miembros son historial de ejemplo y nunca inician sesión: guardar
+    // un hash sin esquema los deja sin acceso y ahorra 30 scrypt por arranque
+    // en frío, que en serverless es la diferencia entre cargar y agotar tiempo.
+    passwordHash: "sin-acceso",
     country: COUNTRIES[index % COUNTRIES.length],
     role: "user",
     createdAt: daysFromNow(-120 + index),

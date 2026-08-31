@@ -25,6 +25,22 @@ La primera petición crea `.data/db.json` con datos de ejemplo (7 sorteos, 32
 miembros, ~15.000 boletos y 2 sorteos ya ejecutados). Para volver a empezar de
 cero: `npm run seed`.
 
+## Despliegue
+
+Funciona **sin configurar ninguna variable de entorno**. En Vercel basta con
+importar el repositorio y desplegar.
+
+El almacén elige solo dónde escribir: en un entorno sin servidor el directorio
+del proyecto es de solo lectura, así que usa `/tmp`; en local usa `.data/`. Si
+no encuentra ningún sitio escribible, sigue funcionando en memoria en lugar de
+fallar. Cualquiera de esas rutas se puede forzar con `GG_DATA_DIR`.
+
+Consecuencia en serverless: `/tmp` es efímero y propio de cada instancia, así
+que los registros y boletos creados en la demo desaparecen cuando la instancia
+se recicla; los datos de ejemplo se vuelven a sembrar solos. Para persistencia
+real hay que cambiar `src/lib/db.ts` por una base de datos (es el único archivo
+que habría que tocar).
+
 ### Cuentas de prueba
 
 | Rol           | Correo             | Contraseña     |

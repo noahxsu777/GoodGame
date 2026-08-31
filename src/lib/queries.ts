@@ -1,6 +1,6 @@
 import "server-only";
 import { readDb } from "./db";
-import type { Entry, Giveaway, Post, User } from "./types";
+import type { Entry, Giveaway, Post } from "./types";
 
 export type GiveawayView = Giveaway & {
   ticketsSold: number;
@@ -113,9 +113,4 @@ export async function platformStats(): Promise<PlatformStats> {
     prizeValueCents: drawn.reduce((sum, g) => sum + g.retailCents, 0),
     openGiveaways: db.giveaways.filter((g) => g.status === "live").length,
   };
-}
-
-export async function listUsers(): Promise<User[]> {
-  const db = await readDb();
-  return db.users;
 }
