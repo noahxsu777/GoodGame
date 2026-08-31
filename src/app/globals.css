@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-950: #06070c;
+  --color-ink-900: #0a0c14;
+  --color-ink-850: #0e111b;
+  --color-ink-800: #141826;
+  --color-ink-700: #1e2334;
+  --color-ink-600: #2b3145;
+  --color-mist-400: #8b93ad;
+  --color-mist-300: #adb4c9;
+  --color-mist-200: #d6dae6;
+
+  --color-neon-500: #7c5cff;
+  --color-neon-400: #9d84ff;
+  --color-aqua-500: #22d3ee;
+  --color-aqua-400: #67e8f9;
+  --color-lime-500: #b6f13a;
+  --color-flame-500: #ff5c39;
+
+  --font-sans: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink-950);
+  color: var(--color-mist-200);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+/* Resplandor de fondo reutilizable en las cabeceras de sección. */
+.aurora {
+  background-image:
+    radial-gradient(60rem 30rem at 12% -10%, rgba(124, 92, 255, 0.28), transparent 60%),
+    radial-gradient(45rem 26rem at 88% 0%, rgba(34, 211, 238, 0.2), transparent 62%);
+}
+
+.grid-lines {
+  background-image:
+    linear-gradient(rgba(139, 147, 173, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 147, 173, 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+.card {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-ink-700);
+  background: linear-gradient(180deg, rgba(20, 24, 38, 0.9), rgba(10, 12, 20, 0.9));
+}
+
+.card-hover {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in oklab, var(--color-neon-500) 55%, transparent);
+  box-shadow: 0 20px 45px -28px rgba(124, 92, 255, 0.85);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, #ffffff 8%, var(--color-neon-400) 48%, var(--color-aqua-400) 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ticker-track {
+  animation: ticker 38s linear infinite;
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.82); }
+}
+
+.live-dot {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track,
+  .live-dot { animation: none; }
+  .card-hover:hover { transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-neon-500) 45%, transparent);
+  color: white;
+}
