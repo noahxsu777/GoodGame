@@ -1,9 +1,9 @@
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(14px);
   transition:
-    opacity 0.7s var(--ease),
-    transform 0.7s var(--ease);
+    opacity 0.55s var(--ease),
+    transform 0.55s var(--ease);
 }
 
 .reveal-on {
@@ -13,20 +13,15 @@
 
 .hero-swap {
   display: inline-block;
-  min-height: 1em;
-  transition:
-    opacity 0.35s var(--ease),
-    transform 0.35s var(--ease);
+  transition: opacity 0.3s var(--ease);
 }
 
 .hero-swap-on {
   opacity: 1;
-  transform: none;
 }
 
 .hero-swap:not(.hero-swap-on) {
   opacity: 0;
-  transform: translateY(10px);
 }
 
 .hero-follow {
@@ -35,78 +30,67 @@
   pointer-events: none;
   z-index: 0;
   background: radial-gradient(
-    28rem 18rem at var(--mx, 50%) var(--my, 18%),
-    rgba(109, 94, 252, 0.18),
-    transparent 58%
+    34rem 20rem at var(--mx, 18%) var(--my, 12%),
+    rgba(109, 94, 252, 0.14),
+    transparent 62%
   );
 }
 
-.bar-fill {
-  position: relative;
-  overflow: hidden;
+.hero-card {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 30px 80px -40px rgba(0, 0, 0, 0.85);
 }
 
-.bar-fill::after {
+.hero-card::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-  animation: bar-shine 2.4s ease-in-out infinite;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(145, 132, 255, 0.55), transparent);
+  z-index: 3;
+  pointer-events: none;
 }
 
-@keyframes bar-shine {
-  from {
-    transform: translateX(-120%);
-  }
-  to {
-    transform: translateX(120%);
-  }
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
 }
 
-@keyframes aurora-shift {
-  0%,
-  100% {
-    filter: hue-rotate(0deg);
-  }
-  50% {
-    filter: hue-rotate(18deg);
-  }
-}
-
-.aurora {
-  animation: aurora-shift 14s ease-in-out infinite;
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 11px;
+  color: var(--color-mist-300);
 }
 
 .tick-pop {
-  animation: tick-pop 0.35s var(--ease);
+  animation: tick-pop 0.28s var(--ease);
 }
 
 @keyframes tick-pop {
-  0% {
-    transform: translateY(6px);
-    opacity: 0.35;
+  from {
+    opacity: 0.4;
   }
-  100% {
-    transform: none;
+  to {
     opacity: 1;
   }
-}
-
-.live-feed {
-  min-height: 1.2em;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .reveal-on,
   .hero-swap,
-  .aurora,
-  .bar-fill::after,
   .tick-pop {
     animation: none;
     transition: none;
     opacity: 1;
     transform: none;
-    filter: none;
   }
 }
