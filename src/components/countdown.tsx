@@ -12,10 +12,6 @@ function parts(msLeft: number) {
   };
 }
 
-/**
- * El servidor y el cliente pueden estar en husos distintos, así que el contador
- * solo se pinta tras montar para no romper la hidratación.
- */
 export function Countdown({ to, compact = false }: { to: string; compact?: boolean }) {
   const target = new Date(to).getTime();
   const [left, setLeft] = useState<number | null>(null);
@@ -40,13 +36,15 @@ export function Countdown({ to, compact = false }: { to: string; compact?: boole
   if (compact) {
     return (
       <span className="font-mono text-sm font-bold tabular-nums text-white">
-        {d > 0 ? `${d}d ${String(h).padStart(2, "0")}h` : `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`}
+        {d > 0
+          ? `${d}d ${String(h).padStart(2, "0")}h`
+          : `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`}
       </span>
     );
   }
 
   const cells: [number, string][] = [
-    [d, "días"],
+    [d, "dias"],
     [h, "hrs"],
     [m, "min"],
     [s, "seg"],
@@ -60,7 +58,8 @@ export function Countdown({ to, compact = false }: { to: string; compact?: boole
           className="rounded-xl border border-white/10 bg-white/[0.03] px-1 py-3 text-center"
         >
           <p
-            className={`font-display text-2xl font-semibold tabular-nums ${i === 3 ? "text-aqua-400" : "text-white"}`}
+            key={i === 3 ? value : label}
+            className={`font-display text-2xl font-semibold tabular-nums tick-pop ${i === 3 ? "text-aqua-400" : "text-white"}`}
           >
             {String(value).padStart(2, "0")}
           </p>
