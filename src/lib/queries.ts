@@ -1,5 +1,6 @@
 import "server-only";
 import { readDb } from "./db";
+import { withPrizePhoto } from "./prize-photos";
 import type { Entry, Giveaway, Post } from "./types";
 
 export type GiveawayView = Giveaway & {
@@ -12,8 +13,9 @@ export type GiveawayView = Giveaway & {
 function decorate(giveaway: Giveaway, entries: Entry[]): GiveawayView {
   const own = entries.filter((e) => e.giveawayId === giveaway.id);
   const ticketsSold = own.reduce((sum, e) => sum + e.tickets.length, 0);
+  const base = withPrizePhoto(giveaway);
   return {
-    ...giveaway,
+    ...base,
     ticketsSold,
     ticketsLeft: Math.max(0, giveaway.totalTickets - ticketsSold),
     progress: Math.min(100, Math.round((ticketsSold / giveaway.totalTickets) * 100)),
