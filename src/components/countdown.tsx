@@ -24,7 +24,7 @@ export function Countdown({ to, compact = false }: { to: string; compact?: boole
   }, [target]);
 
   if (left === null) {
-    return <span className="font-mono text-mist-400">{compact ? "--:--" : "Calculando…"}</span>;
+    return <span className="font-mono text-mist-400">{compact ? "--:--" : "…"}</span>;
   }
 
   if (left <= 0) {
@@ -53,17 +53,11 @@ export function Countdown({ to, compact = false }: { to: string; compact?: boole
   return (
     <div className="grid grid-cols-4 gap-2">
       {cells.map(([value, label], i) => (
-        <div
-          key={label}
-          className="rounded-xl border border-white/10 bg-white/[0.03] px-1 py-3 text-center"
-        >
-          <p
-            key={i === 3 ? value : label}
-            className={`font-display text-2xl font-semibold tabular-nums tick-pop ${i === 3 ? "text-aqua-400" : "text-white"}`}
-          >
+        <div key={label} className="rounded-xl border border-white/8 bg-white/[0.025] px-1 py-3 text-center">
+          <p className={`font-display text-2xl font-semibold tabular-nums ${i === 3 ? "text-aqua-400" : "text-white"}`}>
             {String(value).padStart(2, "0")}
           </p>
-          <p className="mt-1 text-[11px] text-mist-400">{label}</p>
+          <p className="mt-1 text-[10px] uppercase tracking-[0.12em] text-mist-400">{label}</p>
         </div>
       ))}
     </div>
