@@ -1,0 +1,112 @@
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+}
+
+.reveal-on {
+  opacity: 1;
+  transform: none;
+}
+
+.hero-swap {
+  display: inline-block;
+  min-height: 1em;
+  transition:
+    opacity 0.35s var(--ease),
+    transform 0.35s var(--ease);
+}
+
+.hero-swap-on {
+  opacity: 1;
+  transform: none;
+}
+
+.hero-swap:not(.hero-swap-on) {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.hero-follow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    28rem 18rem at var(--mx, 50%) var(--my, 18%),
+    rgba(109, 94, 252, 0.18),
+    transparent 58%
+  );
+}
+
+.bar-fill {
+  position: relative;
+  overflow: hidden;
+}
+
+.bar-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  animation: bar-shine 2.4s ease-in-out infinite;
+}
+
+@keyframes bar-shine {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes aurora-shift {
+  0%,
+  100% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(18deg);
+  }
+}
+
+.aurora {
+  animation: aurora-shift 14s ease-in-out infinite;
+}
+
+.tick-pop {
+  animation: tick-pop 0.35s var(--ease);
+}
+
+@keyframes tick-pop {
+  0% {
+    transform: translateY(6px);
+    opacity: 0.35;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.live-feed {
+  min-height: 1.2em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-on,
+  .hero-swap,
+  .aurora,
+  .bar-fill::after,
+  .tick-pop {
+    animation: none;
+    transition: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
