@@ -24,10 +24,14 @@ export function Reveal({
           io.disconnect();
         }
       },
-      { threshold: 0.12 },
+      { threshold: 0.08, rootMargin: "0px 0px -8% 0px" },
     );
     io.observe(el);
-    return () => io.disconnect();
+    const fallback = window.setTimeout(() => setOn(true), 1200);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, []);
 
   return (
@@ -49,33 +53,21 @@ export function CountUp({
   className?: string;
 }) {
   const [n, setN] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting || started.current) return;
-      started.current = true;
-      const t0 = performance.now();
-      const run = (t: number) => {
-        const p = Math.min(1, (t - t0) / 900);
-        const ease = 1 - Math.pow(1 - p, 3);
-        setN(Math.round(value * ease));
-        if (p < 1) requestAnimationFrame(run);
-      };
-      requestAnimationFrame(run);
-    });
-    io.observe(el);
-    return () => io.disconnect();
+    const t0 = performance.now();
+    let frame = 0;
+    const run = (t: number) => {
+      const p = Math.min(1, (t - t0) / 1000);
+      const ease = 1 - Math.pow(1 - p, 3);
+      setN(Math.round(value * ease));
+      if (p < 1) frame = requestAnimationFrame(run);
+    };
+    frame = requestAnimationFrame(run);
+    return () => cancelAnimationFrame(frame);
   }, [value]);
 
-  return (
-    <span ref={ref} className={className}>
-      {n.toLocaleString("es-MX")}
-    </span>
-  );
+  return <span className={className}>{n.toLocaleString("es-MX")}</span>;
 }
 
 const STATUS = [
@@ -100,11 +92,7 @@ export function HeroLine() {
     };
   }, [i]);
 
-  return (
-    <span className={`hero-swap text-mist-300 ${on ? "hero-swap-on" : ""}`}>
-      {STATUS[i]}
-    </span>
-  );
+  return <span className={`hero-swap text-mist-300 ${on ? "hero-swap-on" : ""}`}>{STATUS[i]}</span>;
 }
 
 export function HeroGlow() {
